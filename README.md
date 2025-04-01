@@ -3,4 +3,4 @@
 
 ---
 
-<video src="./amuse.mp4" controls></video>
+[Amusing Video](./demo.mp4)
