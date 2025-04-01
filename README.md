@@ -3,8 +3,4 @@
 
 ---
 
-<div align="center">
-  <video poster="poster.jpg" controls>
-    <source src="amsue.mp4" type="video/mp4">
-  </video>
-</div>
+![演示视频](https://user-images.githubusercontent.com/Path-planning-algorithm-based-on-Robotis-Darwin-OP2-robots/amuse.mp4)
