@@ -3,4 +3,8 @@
 
 ---
 
-[Amusing Video](./demo.mp4)
+<div align="center">
+  <video poster="poster.jpg" controls>
+    <source src="amsue.mp4" type="video/mp4">
+  </video>
+</div>
