@@ -3,7 +3,4 @@
 
 ---
 
-
-<video src="amuse.mp4" controls>
-    Amusing Video about the Darwin robot
-</video>
+<video src="./amuse.mp4.mp4" controls></video>
