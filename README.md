@@ -3,4 +3,4 @@
 
 ---
 
-![Amusing robot](./amuse.gif)
+![Amusing robot](https://github.com/Akira-zyh/Path-planning-algorithm-based-on-Robotis-Darwin-OP2-robots/tree/main/amuse.gif)
