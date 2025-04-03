@@ -5,7 +5,7 @@ sceneTreePerspectives: 000000ff00000001000000030000001e000000c0000000fa010000000
 maximizedDockId: -1
 centralWidgetVisible: 1
 orthographicViewHeight: 1
-textFiles: 3 "../DRL/controllers/test/test.py" "../DRL2/controllers/my_controller/my_controller.py" "../DRL2/controllers/test/test.py" "controllers/_my_controller/_my_controller.py"
+textFiles: 3 "../DRL/controllers/test/test.py" "../DRL2/controllers/my_controller/my_controller.py" "../DRL2/controllers/test/test.py" "controllers/_my_controller/_my_controller.py" "controllers/_dqn/_dqn.py"
 robotWindow: ROBOTIS OP2
 consoles: Console:All:All
-renderingDevicePerspectives: ROBOTIS OP2:Camera;1;1;0;0
+renderingDevicePerspectives: ROBOTIS OP2:Camera;1;1.45833;0;0

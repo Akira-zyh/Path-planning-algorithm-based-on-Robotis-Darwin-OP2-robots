@@ -3,9 +3,6 @@ from controller import Robot, Keyboard
 from managers import RobotisOp2GaitManager, RobotisOp2MotionManager
 import sys
 import time
-import numpy as np
-import cv2
-
 
 NMOTORS = 20
 motorNames = [
@@ -78,14 +75,6 @@ class Humanoid(Robot):
         self.motion_manager.playPage(9)  # 初始姿势
         self.motors[-1].setPosition(0.7)
         self.wait(200)
-        print("Camera width:", self.camera.getWidth())
-        print("Camera height:", self.camera.getHeight())
-        # image_data = self.camera.getImage()
-        # image = np.frombuffer(image_data, np.uint8).reshape(
-            # (self.camera.getHeight(), self.camera.getWidth(), 4)  # RGBA格式，4通道
-        # )
-        # image_bgr = cv2.cvtColor(image, cv2.COLOR_RGBA2BGR)
-        # cv2.imwrite('camera_image.png', image_bgr)
         
         is_walking = False
         while True:
@@ -144,14 +133,12 @@ class Humanoid(Robot):
             self.motion_manager.playPage(10)  # 前滚翻恢复
             self.motion_manager.playPage(9)
             self.motors[-1].setPosition(0.7)
-            print("Done!")
             self.fall_up_count = 0
         elif self.fall_down_count > acc_step:
             print("Fall down detected. getting up...")
             self.motion_manager.playPage(11)  # 后滚翻恢复
             self.motion_manager.playPage(9)
             self.motors[-1].setPosition(0.7)
-            print("Done!")
             self.fall_down_count = 0
 
 # 主程序入口（参考网页2启动方式）
