@@ -4,7 +4,6 @@ from managers import RobotisOp2GaitManager, RobotisOp2MotionManager
 import sys
 import time
 import numpy as np
-import cv2
 
 
 NMOTORS = 20
