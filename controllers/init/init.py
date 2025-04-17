@@ -2,6 +2,8 @@
 
 import os
 import sys
+
+from matplotlib import pyplot as plt
 libraryPath = os.path.join(os.environ.get("WEBOTS_HOME"), 'projects', 'robots', 'robotis', 'darwin-op',  'libraries', 'python39')
 libraryPath = libraryPath.replace('/', os.sep)
 sys.path.append(libraryPath)
@@ -24,7 +26,7 @@ motorNames = [
 class Humanoid(Robot):
     def __init__(self):
         super().__init__()
-        self.time_step = int(self.getBasicTimeStep())
+        self.timeStep = int(self.getBasicTimeStep())
         
         # 初始化LED（参考网页1）
         self.led_head = self.getDevice("HeadLed")
@@ -34,17 +36,26 @@ class Humanoid(Robot):
         
         # 传感器初始化（网页4示例）
         self.accelerometer = self.getDevice("Accelerometer")
-        self.accelerometer.enable(self.time_step)
+        self.accelerometer.enable(self.timeStep)
         self.gyro = self.getDevice("Gyro")
-        self.gyro.enable(self.time_step)
-        self.camera = self.getDevice("Camera")
-        self.camera.enable(2*self.time_step)
+        self.gyro.enable(self.timeStep)
+        self.camera = self.getDevice("camera")
+        self.camera.enable(self.timeStep)
+        self.camera.recognitionEnable(self.timeStep)
+        self.camera.enableRecognitionSegmentation()
         self.compass = self.getDevice("compass")
-        self.compass.enable(self.time_step)
+        self.compass.enable(self.timeStep)
         self.gps = self.getDevice('gps')
-        self.gps.enable(self.time_step)
+        self.gps.enable(self.timeStep)
         self.imu = self.getDevice('imu')
-        self.imu.enable(self.time_step)
+        self.imu.enable(self.timeStep)
+        # self.distancesensor = self.getDevice("distance sensor")
+        # self.distancesensor.enable(self.timeStep)
+        self.lidar = self.getDevice("lidar")
+        self.lidar.enablePointCloud()
+        self.lidar.enable(self.timeStep)
+        self.max_range = 4
+        self.angle_bins = np.linspace(0, 360, 361)
         self.target_position = [1.0, 0.0, -3.0]
         # 电机和位置传感器初始化（网页2方法）
         self.motors = []
@@ -52,13 +63,13 @@ class Humanoid(Robot):
         for name in motorNames:
             motor = self.getDevice(name)
             sensor = self.getDevice(name + "S")
-            sensor.enable(self.time_step)
+            sensor.enable(self.timeStep)
             self.motors.append(motor)
             self.position_sensors.append(sensor)
 
         # 键盘控制（网页6事件处理）
         self.keyboard = self.getKeyboard()
-        self.keyboard.enable(self.time_step)
+        self.keyboard.enable(self.timeStep)
         self.fall_down_count = 0
         self.fall_up_count = 0
         # 动作管理模块（网页1关键配置）
@@ -70,11 +81,9 @@ class Humanoid(Robot):
         self.motion_manager.playPage(9)  # 初始姿势
         self.motors[-1].setPosition(0.8)
         self.wait(200)
-        print("Camera width:", self.camera.getWidth())
-        print("Camera height:", self.camera.getHeight())
         
     def my_step(self):
-        if self.step(self.time_step) == -1:
+        if self.step(self.timeStep) == -1:
             sys.exit(0)
     
     def wait(self, ms):
@@ -100,12 +109,24 @@ class Humanoid(Robot):
         
         return [distance, angle]
         
+    
+    def visualize_point_cloud(self, point_cloud):
+        # 提取点云的 x 和 z 坐标
+        x = [point.x for point in point_cloud]
+        z = [point.z for point in point_cloud]
+        
+        # 绘制点云
+        plt.scatter(x, z, s=1)
+        plt.xlim(-self.max_range, self.max_range)
+        plt.ylim(-self.max_range, self.max_range)
+        plt.axis('equal')
+        plt.show()
         
     def get_observations(self):
         current_position = self.gps.getValues()
         imu_orientation = self.imu.getRollPitchYaw()
         return {
-            'rgb': self.camera.getImage(),
+            # 'rgb': self.camera.getImage(),
             'current_position': current_position,
             'target_polar': self._calculate_goal_position(current_position, imu_orientation)
         }
@@ -123,20 +144,19 @@ class Humanoid(Robot):
             self.gait_manager.setAAmplitude(-0.5)
         elif action == 3:
             self.gait_manager.setAAmplitude(0.5)
-    
-    def get_image(self):
-        key = self.keyboard.getKey()
-        if key == Keyboard.DOWN:
-            image = self.camera.getImage()
-            t = self.getTime()
-            image_name = os.path.join("./data/easy1/", 'easy_{}_.png'.format(t))
-            image = np.frombuffer(image, np.uint8).reshape(
-                (self.camera.getHeight(), self.camera.getWidth(), 4) 
-            )
-            cv2.imwrite(image_name, image)
-            print("image-{} got".format(t))
             
-    
+    def get_polar_data(self):
+        point_cloud = self.lidar.getPointCloud()
+        polar_data = []
+        for point in point_cloud:
+            r = np.sqrt(point.x**2 + point.z**2)
+            theta = np.arctan2(point.z, point.x)
+            polar_data.append((r, theta))
+        if not point_cloud:
+            print("Lidar点云数据为空，请检查设备是否启用")
+            return
+        return polar_data
+
     def check_if_fallen(self):
         acc_tolerance = 80.0
         acc_step = 50
@@ -172,36 +192,27 @@ class Humanoid(Robot):
             self.fall_down_count = 0
 
     def run(self):
-        print("Press ARROW DOWN to take image")
-        # image_data = self.camera.getImage()
-        # image = np.frombuffer(image_data, np.uint8).reshape(
-        #     (self.camera.getHeight(), self.camera.getWidth(), 4)  # RGBA格式，4通道
-        # )
-        # image_bgr = cv2.cvtColor(image, cv2.COLOR_RGBA2BGR)
-        # img_name = 'img-{width}x{height}.png'.format(width=self.camera.getWidth(), height=self.camera.getHeight())
-        # cv2.imwrite("bgr "+img_name, image_bgr)
-        # cv2.imwrite("rgb "+img_name, image)
-        # i = 0
-        # j = 0
         self.gait_manager.start()
         
         while True:
             self.check_if_fallen()
-            # print(self.get_observations()['current_position'], self.get_observations()['target_polar'])
+            # self.visualize_point_cloud(self.lidar.getPointCloud())
+            data = self.lidar.getPointCloud()
             # 重置步态参数
             self.gait_manager.setXAmplitude(0.0)
             self.gait_manager.setAAmplitude(0.0)
             self.gait_manager.stop()
             
-            self.get_image()
             
             # random_action = np.random.randint(0, 4)
             # self.execute_action(random_action)
             # print(random_action)
             
             # 步态更新
-            self.gait_manager.step(self.time_step)
+            self.gait_manager.step(self.timeStep)
             self.my_step()
+
+
             
 # 主程序入口
 if __name__ == "__main__":
