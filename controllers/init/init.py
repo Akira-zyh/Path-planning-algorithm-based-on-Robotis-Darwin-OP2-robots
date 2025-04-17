@@ -12,6 +12,8 @@ from managers import RobotisOp2GaitManager, RobotisOp2MotionManager
 import cv2
 import torch
 from torchvision import transforms
+import gymnasium as gym
+from gymnasium import spaces
 import numpy as np
 
 
@@ -22,6 +24,122 @@ motorNames = [
     "LegUpperL", "LegLowerR", "LegLowerL", "AnkleR", "AnkleL", "FootR",
     "FootL", "Neck", "Head"
 ]
+
+class WebotEnv(gym.Env):
+    metadata = {'render.modes': ['console']}
+    def __init__(self):
+        super(WebotEnv, self).__init__()
+        self.timeStep = int(self.getBasicTimeStep())
+        self.robot = Robot()
+        # 初始化LED（参考网页1）
+        self.led_head = self.getDevice("HeadLed")
+        self.led_eye = self.getDevice("EyeLed")
+        self.led_head.set(0xFFFF00)
+        self.led_eye.set(0xFF0400)
+        self.motors = []
+        self.position_sensors = []
+        for name in motorNames:
+            motor = self.getDevice(name)
+            sensor = self.getDevice(name + "S")
+            sensor.enable(self.timeStep)
+            self.motors.append(motor)
+            self.position_sensors.append(sensor)
+        # 传感器初始化（网页4示例）
+        self.accelerometer = self.getDevice("Accelerometer")
+        self.accelerometer.enable(self.timeStep)
+        self.gyro = self.getDevice("Gyro")
+        self.gyro.enable(self.timeStep)
+        self.camera = self.getDevice("camera")
+        self.camera.enable(self.timeStep)
+        self.camera.recognitionEnable(self.timeStep)
+        self.camera.enableRecognitionSegmentation()
+        self.compass = self.getDevice("compass")
+        self.compass.enable(self.timeStep)
+        self.gps = self.getDevice('gps')
+        self.gps.enable(self.timeStep)
+        self.imu = self.getDevice('imu')
+        self.imu.enable(self.timeStep)
+        self.action_space = spaces.Discrete(4)
+        self.observation_space = spaces.Box(low=0, high=255, shape=(64, 64, 3), dtype=np.uint8)
+        
+        self.motion_manager = RobotisOp2MotionManager(self)
+        self.gait_manager = RobotisOp2GaitManager(self, "config.ini")
+        self.my_step()  # 首次更新传感器值
+    
+    def my_step(self):
+        if self.step(self.timeStep) == -1:
+            sys.exit(0)
+            
+    def wait(self, ms):
+        start_time = self.getTime()
+        while (self.getTime() - start_time) * 1000 < ms:
+            self.my_step()
+    def reset(self):
+        self.motion_manager.playPage(9)  # 初始姿势
+        self.motors[-1].setPosition(0.8)
+        self.wait(200)
+        
+    def step(self, action):
+        self.check_if_fallen()
+        if action == 0:
+            self.gait_manager.setXAmplitude(1.0)
+        elif action == 1:
+            self.gait_manager.setXAmplitude(-1.0)
+        elif action == 2:
+            self.gait_manager.setAAmplitude(-0.5)
+        elif action == 3:
+            self.gait_manager.setAAmplitude(0.5)
+            
+        self.robot.step(self.timeStep)
+        image = self.camera.getImageArray()
+        observation = np.array(image, dtype=np.uint8)
+        
+        reward = 0
+        done = False
+        return observation, reward, done, {}
+    
+    def check_if_fallen(self):
+        acc_tolerance = 80.0
+        acc_step = 50
+        
+        # 获取加速度计数据
+        acc_values = self.accelerometer.getValues()
+        y_acc = acc_values[1]
+        
+        if y_acc < 512.0 - acc_tolerance:
+            self.fall_up_count += 1
+        else:
+            self.fall_up_count = 0
+            
+        if y_acc > 512.0 + acc_tolerance:
+            self.fall_down_count += 1
+        else:
+            self.fall_down_count = 0
+            
+        # 跌倒恢复动作
+        if self.fall_up_count > acc_step:
+            print("Fall up detected. getting up...")
+            self.motion_manager.playPage(10)  # 前滚翻恢复
+            self.motion_manager.playPage(9)
+            self.motors[-1].setPosition(0.7)
+            print("Done!")
+            self.fall_up_count = 0
+        elif self.fall_down_count > acc_step:
+            print("Fall down detected. getting up...")
+            self.motion_manager.playPage(11)  # 后滚翻恢复
+            self.motion_manager.playPage(9)
+            self.motors[-1].setPosition(0.7)
+            print("Done!")
+            self.fall_down_count = 0
+            
+    def render(self, mode='console'):
+        if mode == 'console':
+            print("Current state: {}".format(self.state))
+    
+    def close(self):
+        pass
+    
+    
 
 class Humanoid(Robot):
     def __init__(self):
@@ -77,10 +195,13 @@ class Humanoid(Robot):
         self.gait_manager = RobotisOp2GaitManager(self, "config.ini")
         self.my_step()  # 首次更新传感器值
         
+    def reset_robot(self):
+        self.my_step()
         # 初始化动作
         self.motion_manager.playPage(9)  # 初始姿势
         self.motors[-1].setPosition(0.8)
         self.wait(200)
+        self.my_step()
         
     def my_step(self):
         if self.step(self.timeStep) == -1:
@@ -135,6 +256,7 @@ class Humanoid(Robot):
         self.target_position = [x, y]
     
     def execute_action(self, action):
+        self.my_step()
         self.check_if_fallen()
         if action == 0:
             self.gait_manager.setXAmplitude(1.0)
