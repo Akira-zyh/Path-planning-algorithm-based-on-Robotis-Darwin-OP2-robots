@@ -230,7 +230,7 @@ class NavigationRobotSupervisor(RobotSupervisor):
         self.ds_aperture = ds_aperture
         self.ds_resolution = ds_resolution
         self.ds_noise = ds_noise
-        self.de_thresholds = [8.0, 8.0, 8.0, 10.15, 14.7, 13.15, 12.7, 13.15, 14.7, 10.15, 8.0, 8.0, 8.0]
+        self.ds_thresholds = [8.0, 8.0, 8.0, 10.15, 14.7, 13.15, 12.7, 13.15, 14.7, 10.15, 8.0, 8.0, 8.0]
         robot_children = self.robot.getField('bodySlot')
         robot_child = robot_children.getMFNode(2)
         print(robot_child.getType())
@@ -261,6 +261,7 @@ class NavigationRobotSupervisor(RobotSupervisor):
         self.touch_sensor_left.enable(self.timestep)
         self.touch_sensor_right = self.supervisor.getDevice('ts-right')
         self.touch_sensor_right.enable(self.timestep)
+        self.walk_parameters = [0.0, 0.0, 0.0]
         self.NMOTORS = 20
         self.motorNames = [
             "ShoulderR", "ShoulderL", "ArmUpperR", "ArmUpperL", "ArmLowerR",
@@ -281,8 +282,8 @@ class NavigationRobotSupervisor(RobotSupervisor):
         self.accelerometer.enable(self.timestep)
         self.gyro = self.supervisor.getDevice("Gyro")
         self.gyro.enable(self.timestep)
-        # self.camera = self.supervisor.getDevice("camera")
-        # self.camera.enable(self.timestep)
+        self.camera = self.supervisor.getDevice("Camera")
+        self.camera.enable(self.timestep)
         # self.camera.recognitionEnable(self.timestep)
         # self.camera.enableRecognitionSegmentation()
         # self.compass = self.supervisor.getDevice("compass")
@@ -471,18 +472,114 @@ class NavigationRobotSupervisor(RobotSupervisor):
                     self.touched_obstacle_right = self.touched_obstacle_left = True
         return self.mask
 
+    def get_observations(self, action=None):
+        if self.just_reset:
+            self.previous_tar_d = self.current_tar_d
+            self.previous_tar_a = self.current_tar_a
+        obs = [normalize_to_range(self.current_tar_d, 0.0, self.initial_target_distance, 0.0, 1.0, clip=True),
+               normalize_to_range(self.currrent_tar_a, -np.pi, np.pi, -1.0, 1.0, clip=True),
+               self.walk_parameters[0], self.walk_parameters[1], self.walk_parameters[2]] # NOQA
+        
+        obs.extend(self.current_touch_sensors)
+
+        if self.add_action_to_obs:
+            action_one_hot = [0.0 for _ in range(self.action_space.n)]
+            try:
+                action_one_hot[action] = 1.0
+            except IndexError:
+                pass
+            obs.extend(action_one_hot)
+        
+        ds_values = []
+        for i in range(len(self.distance_sensors)):
+            ds_values.append(normalize_to_range(self.current_dist_sensors[i], 0, self.ds_max[i], 1.0, 0.0))
+        obs.extend(ds_values)
+
+        self.obs_memory = self.obs_memory[1:]
+        self.obs_memory.append(obs)
+
+        dense_obs = ([self.obs_memory[i] for i in range(len(self.obs_memory) - 1, len(self.obs_memory) - 1 - self.step_window, -1)])
+        diluted_obs =[]
+        counter = 0
+        for j in range(len(self.obs_memory) - 1 - self.step_window, 0, -1):
+            counter += 1
+            if counter >= self.observation_counter_limit - 1:
+                diluted_obs.append(self.obs_memory[j])
+                counter = 0
+        self.obs_list = []
+        for single_obs in diluted_obs:
+            for item in single_obs:
+                self.obs_list.append(item)
+        for single_obs in dense_obs:
+            for item in single_obs:
+                self.obs_list.append(item)
+
+        return self.obs_list
+
+
+    def get_reward(self, action):
+        if self.just_reset:
+            self.previous_tar_d = self.current_tar_d = self.initial_target_distance
+            self.previous_tar_a = self.currrent_tar_a = self.initial_target_angle
+        
+        normalized_current_tar_d = normalize_to_range(self.current_tar_d,
+                                                      0.0, self.initial_target_distance, 0.0, 1.0, clip=True)
+        dist_tar_reward = - normalized_current_tar_d
+        if round(self.current_tar_d, 4) - round(self.min_distance_reached, 4) < 0.0:
+            dist_tar_reward = 1.0
+            self.min_distance_reached = self.current_tar_d
+            
+        reach_tar_reward = 0.0
+        if self.current_tar_d < self.on_target_threshold:
+            reach_tar_reward = 1.0 - 0.5 * self.current_timestep / self.maximum_episode_steps
+            self.done_reason = "Reached Target"
+
+        if abs(self.currrent_tar_a) > (np.pi / 4) * normalized_current_tar_d:
+            if round(abs(self.previous_tar_a) - abs(self.currrent_tar_a), 3) > 0.001:
+                ang_tar_reward = 1.0
+            elif round(abs(self.previous_tar_a) - abs(self.currrent_tar_a), 3) < -0.001:
+                ang_tar_reward = -1.0
+        else:
+            ang_tar_reward = 1.0
+        
+        dist_sensors_reward = 0
+        for i in range(len(self.distance_sensors)):
+            if self.current_dist_sensors[i] < self.ds_thresholds[i]:
+                dist_sensors_reward -= 1.0
+            else:
+                dist_sensors_reward += 1.0
+        dist_sensors_reward /= self.number_of_distance_sensors
+        
+        if self.ds_type == "sonar":
+            dist_sensors_reward = round(normalize_to_range(dist_sensors_reward, -0.077, 1.0, -1.0, 0.0, clip=True), 4)
+        elif self.ds_type == "generic":
+            dist_sensors_reward = round(normalize_to_range(dist_sensors_reward, -1.0, 1.0, -1.0, 0.0, clip=True), 4)
+        dist_sensors_reward *= normalized_current_tar_d
+
+        collisioin_reward = 0.0
+        if any(self.current_touch_sensors):
+            self.collisions_counter += 1
+            if self.collisions_counter >= self.reset_on_collisions - 1 and self.reset_on_collisions != -1:
+                self.done_reason = "Collision"
+            collisioin_reward = -1.0
+        
+        smoothness_reward = round(
+            -abs(normalize_to_range(self.current_rotation_change, -0.0183, 0.0183, -1.0, 1.0, clip=True)), 2
+        )
+        if not self.just_reset:
+            self.smoothnes_list.append(smoothness_reward)
+
+        dist_moved = np.linalg.norm([self.current_position[0] - self.previous_position[0],
+                                     self.current_position[1] - self.previous_position[1]])
+        speed_reward = normalize_to_range(dist_moved, 0.0, 0.0012798, -1.0, 1.0)
+        speed_reward *= normalized_current_tar_d
+        
     def apply_action(self, action):
         return super().apply_action(action)
 
     def get_info(self):
         return super().get_info()
-    
-    def get_observations(self):
-        return super().get_observations()
-    
-    def get_reward(self, action):
-        return super().get_reward(action)
-    
+
     def is_done(self):
         return super().is_done()
     
