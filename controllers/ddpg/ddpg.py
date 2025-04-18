@@ -169,7 +169,7 @@ class NavigationRobotSupervisor(RobotSupervisor):
                  max_ds_range=100.0, ds_type="generic", ds_n_rays=1, ds_aperture=0.1,
                  ds_resolution=-1, ds_noise=0.0, ds_denial_list=None,
                  target_distance_weight=1.0, target_angle_weight=1.0, dist_sensors_weight=1.0,
-                 target_reach_weight=1.0, collision_weight=1.0, smoothness_weight=1.0, speed_weight=1.0, fall_down_weight=1.0,
+                 target_reach_weight=1.0, collision_weight=1.0, smoothness_weight=1.0, speed_weight=1.0, fall_down_weight=-1.0,
                  map_width=7, map_height=7, cell_size=None, seed=None):
         super().__init__()
         self.seed = seed
@@ -240,21 +240,21 @@ class NavigationRobotSupervisor(RobotSupervisor):
         for i in range(self.number_of_distance_sensors):
             self.distance_sensors.append(self.supervisor.getDevice(f"ds{i}"))
             self.distance_sensors[-1].enable(self.timestep)
-            # ds_node = ds_group.getMFNode(i)
-            # lookup_table = ds_node.getField("lookupTable")
+            ds_node = ds_group.getMFNode(i)
+            lookup_table = ds_node.getField("lookupTable")
 
-            # lookup_table.removeMF(0)
-            # lookup_table.removeMF(lookup_table.getCount() - 1)
-            # lookup_table.insertMFVec3f(0, [0.0, max_ds_range / 100.0, 0.0])
-            # lookup_table.insertMFVec3f(1, [0.25 * max_ds_range / 100.0, 0.25 * max_ds_range, self.ds_noise])
-            # lookup_table.insertMFVec3f(2, [0.5 * max_ds_range / 100.0, 0.5 * max_ds_range, self.ds_noise])
-            # lookup_table.insertMFVec3f(3, [0.75 * max_ds_range / 100.0, 0.75 * max_ds_range, self.ds_noise])
-            # lookup_table.insertMFVec3f(4, [max_ds_range / 100.0, max_ds_range, 0.0])
+            lookup_table.removeMF(0)
+            lookup_table.removeMF(lookup_table.getCount() - 1)
+            lookup_table.insertMFVec3f(0, [0.0, max_ds_range / 100.0, 0.0])
+            lookup_table.insertMFVec3f(1, [0.25 * max_ds_range / 100.0, 0.25 * max_ds_range, self.ds_noise])
+            lookup_table.insertMFVec3f(2, [0.5 * max_ds_range / 100.0, 0.5 * max_ds_range, self.ds_noise])
+            lookup_table.insertMFVec3f(3, [0.75 * max_ds_range / 100.0, 0.75 * max_ds_range, self.ds_noise])
+            lookup_table.insertMFVec3f(4, [max_ds_range / 100.0, max_ds_range, 0.0])
             
-            # ds_node.getField("type").setSFString(self.ds_type)
-            # ds_node.getField("numberOfRays").setSFInt32(self.ds_n_rays)
-            # ds_node.getField("aperture").setSFFloat(self.ds_aperture)
-            # ds_node.getField("resolution").setSFFloat(self.ds_resolution)
+            ds_node.getField("type").setSFString(self.ds_type)
+            ds_node.getField("numberOfRays").setSFInt32(self.ds_n_rays)
+            ds_node.getField("aperture").setSFFloat(self.ds_aperture)
+            ds_node.getField("resolution").setSFFloat(self.ds_resolution)
             self.ds_max.append(max_ds_range)
             
         self.touch_sensor_left = self.supervisor.getDevice('ts-left')
@@ -277,7 +277,6 @@ class NavigationRobotSupervisor(RobotSupervisor):
             sensor.enable(self.timestep)
             self.motors.append(motor)
             self.position_sensors.append(sensor)
-        # 传感器初始化（网页4示例）
         self.accelerometer = self.supervisor.getDevice("Accelerometer")
         self.accelerometer.enable(self.timestep)
         self.gyro = self.supervisor.getDevice("Gyro")
@@ -341,7 +340,7 @@ class NavigationRobotSupervisor(RobotSupervisor):
             "smoothless_weight": smoothness_weight,
             "collision": collision_weight,
             "speed_weight": speed_weight,
-            "fall_down": fall_down_weight,
+            # "fall_down": fall_down_weight,
         }
 
         self.map_width, self.map_height = map_width, map_height
@@ -390,7 +389,7 @@ class NavigationRobotSupervisor(RobotSupervisor):
                                     'target_reach_weight': target_reach_weight,
                                     'collision_weight': collision_weight,
                                     'smoothness_weight': smoothness_weight,
-                                    "fall_down_weight": fall_down_weight
+                                    # "fall_down_weight": fall_down_weight
         }
         
     def set_maximum_episode_steps(self,new_value):
@@ -574,13 +573,44 @@ class NavigationRobotSupervisor(RobotSupervisor):
         speed_reward = normalize_to_range(dist_moved, 0.0, 0.0012798, -1.0, 1.0)
         speed_reward *= normalized_current_tar_d
         
+        # fall_down_reward = -1
+        # TODO 
+         
+        if dist_sensors_reward != 0.0 or any(self.current_touch_sensors):
+            ang_tar_reward = 0.0
+        
+        weighted_dist_tar_reward = self.reward_weight_dict["dist_tar"] * dist_tar_reward
+        weighted_ang_tar_reward = self.reward_weight_dict["ang_tar"] * ang_tar_reward
+        weighted_dist_sensors_reward = self.reward_weight_dict["dist_sensors"] * dist_sensors_reward
+        weighted_reach_tar_reward = self.reward_weight_dict["tar_reach"] * reach_tar_reward
+        weighted_collision_reward = self.reward_weight_dict["collision"] * collisioin_reward
+        weighted_smoothness_reward = self.reward_weight_dict["smoothness_weight"] * smoothness_reward
+        weighted_speed_reward = self.reward_weight_dict["speed_weight"] * speed_reward
+        # weighted_fall_down_reward= self.reward_weight_dict["fall_down"] * fall_down_reward
+        
+        reward = (weighted_dist_tar_reward + weighted_ang_tar_reward + weighted_dist_sensors_reward + 
+                  weighted_collision_reward + weighted_reach_tar_reward + weighted_smoothness_reward +
+                  weighted_speed_reward)
+        self.episode_accumated_reward += reward
+
+        if self.just_reset:
+            return 0.0
+        else:
+            return reward
+        
+    def is_done(self):
+        if self.done_reason != "":
+            return True
+        if self.current_timestep >= self.maximum_episode_steps:
+            self.done_reason= "Timeout"
+            return True
+        return False
+        
     def apply_action(self, action):
         return super().apply_action(action)
 
     def get_info(self):
         return super().get_info()
-
-    def is_done(self):
-        return super().is_done()
+    
     
 env = NavigationRobotSupervisor(description="")
