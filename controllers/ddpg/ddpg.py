@@ -5,6 +5,7 @@ from gymnasium.spaces import Box, Discrete
 from deepbots.supervisor.controllers.robot_supervisor import RobotSupervisor
 from utilities import normalize_to_range, get_angle_from_target, get_distance_from_target
 from controller import Supervisor, Keyboard
+from managers import RobotisOp2GaitManager, RobotisOp2MotionManager
 
 class Grid:
     def __init__(self, width, height, origin, cell_size):
@@ -240,16 +241,37 @@ class NavigationRobotSupervisor(RobotSupervisor):
         for i in range(self.number_of_distance_sensors):
             self.distance_sensors.append(self.supervisor.getDevice(f"ds{i}"))
             self.distance_sensors[-1].enable(self.timestep)
+            # ds_node = ds_group.getMFNode(i)
+            # lookup_table = ds_node.getField("lookupTable")
+            # lookup_table.removeMF(0)
+            # lookup_table.removeMF(1)
+            # lookup_table.removeMF(2)
+            # lookup_table.removeMF(3)
+            # lookup_table.removeMF(4)
+            # # lookup_table.setMFVec3f(0, [])
+            # # lookup_table.removeMF(lookup_table.getCount() - 1)
+            # lookup_table.insertMFVec3f(0, [])
+            # lookup_table.insertMFVec3f(1, [])
+            # lookup_table.insertMFVec3f(2, [])
+            # lookup_table.insertMFVec3f(3, [])
+            # lookup_table.insertMFVec3f(4, [])
+            # lookup_table.setMFVec3f(0, [0.0, max_ds_range / 100.0, 0.0])
+            # lookup_table.setMFVec3f(1, [0.25 * max_ds_range / 100.0, 0.25 * max_ds_range, self.ds_noise])
+            # lookup_table.setMFVec3f(2, [0.5 * max_ds_range / 100.0, 0.5 * max_ds_range, self.ds_noise])
+            # lookup_table.setMFVec3f(3, [0.75 * max_ds_range / 100.0, 0.75 * max_ds_range, self.ds_noise])
+            # lookup_table.setMFVec3f(4, [max_ds_range / 100.0, max_ds_range, 0.0])
             ds_node = ds_group.getMFNode(i)
             lookup_table = ds_node.getField("lookupTable")
+            for i in range(lookup_table.getCount()):
+                lookup_table.removeMF(-1)
 
-            lookup_table.removeMF(0)
-            lookup_table.removeMF(lookup_table.getCount() - 1)
-            lookup_table.insertMFVec3f(0, [0.0, max_ds_range / 100.0, 0.0])
-            lookup_table.insertMFVec3f(1, [0.25 * max_ds_range / 100.0, 0.25 * max_ds_range, self.ds_noise])
-            lookup_table.insertMFVec3f(2, [0.5 * max_ds_range / 100.0, 0.5 * max_ds_range, self.ds_noise])
-            lookup_table.insertMFVec3f(3, [0.75 * max_ds_range / 100.0, 0.75 * max_ds_range, self.ds_noise])
-            lookup_table.insertMFVec3f(4, [max_ds_range / 100.0, max_ds_range, 0.0])
+            lookup_table.insertMFVec3f(0, [0.25 * max_ds_range / 100.0, 0.25 * max_ds_range,
+                                                            self.ds_noise])
+            lookup_table.insertMFVec3f(1, [0.5 * max_ds_range / 100.0, 0.5 * max_ds_range,
+                                                            self.ds_noise])
+            lookup_table.insertMFVec3f(2, [0.75 * max_ds_range / 100.0, 0.75 * max_ds_range,
+                                                            self.ds_noise])
+            lookup_table.insertMFVec3f(3, [max_ds_range / 100.0, max_ds_range])
             
             ds_node.getField("type").setSFString(self.ds_type)
             ds_node.getField("numberOfRays").setSFInt32(self.ds_n_rays)
@@ -283,6 +305,8 @@ class NavigationRobotSupervisor(RobotSupervisor):
         self.gyro.enable(self.timestep)
         self.camera = self.supervisor.getDevice("Camera")
         self.camera.enable(self.timestep)
+        self.gait_manager = RobotisOp2GaitManager(self.supervisor, "config.ini")
+        self.motion_manager = RobotisOp2MotionManager(self.supervisor)
         # self.camera.recognitionEnable(self.timestep)
         # self.camera.enableRecognitionSegmentation()
         # self.compass = self.supervisor.getDevice("compass")
@@ -319,7 +343,7 @@ class NavigationRobotSupervisor(RobotSupervisor):
         self.done_reason = ""
         self.reset_count = -1
         self.reach_target_count = 0
-        self.colision_termination_count = 0
+        self.collision_termination_count = 0
         self.timeout_count = 0
         self.min_distance_reached = float("inf")
         self.min_dist_reached_list = []
@@ -605,6 +629,115 @@ class NavigationRobotSupervisor(RobotSupervisor):
             self.done_reason= "Timeout"
             return True
         return False
+    
+    def reset(self):
+        self.supervisor.simulationResetPhysics()
+        super(Supervisor, self).step(int(self.supervisor.getBasicTimeStep()))
+        self.obs_memory = [[0.0 for _ in range(self.single_obs_size)]
+                           for _ in range((self.seconds_window * int(np.ceil(1000 / self.timestep))) + self.step_window)]
+        self.observation_counter = self.observation_counter_limit
+        
+        self.trigger_done = False
+        self.path_to_target = None
+        self.walk_parameters = [0.0, 0.0, 0.0]
+        self.set_velocity = (self.gait_manager.setXAmplitude(self.walk_parameters[0]),
+                             self.gait_manager.setYAmplitude(self.walk_parameters[1]),
+                             self.gait_manager.setAAmplitude(self.walk_parameters[2]))
+        self.collisions_counter = 0
+        
+        self.supervisor.getField("rotation").setSFRotation([0.0, 0.0, 1.0, random.uniform(-np.pi, np.pi)])
+        
+        if self.current_difficulty["type"] == "random":
+            while True:
+                self.randomize_map("random")
+                self.supervisor.simulationPhysicsReset()
+                self.path_to_target = self.gae_random_path(add_target=True)
+                if self.path_to_target is not None:
+                    self.path_to_target = self.path_to_target[1:]
+                    break
+        elif self.current_difficulty["type"] == "corridor":
+            while True:
+                max_distance_allowed = 1
+                self.randomize_map("corridar")
+                self.supervisor.simulationPhysicsReset()
+                self.path_to_target = self.get_random_path(add_target=False)
+                if self.path_to_target is not None:
+                    self.path_to_target = self.path_to_target[1:]
+                    break
+                max_distance_allowed += 1
+        self.place_path(self.path_to_target)
+        self.just_reset = True
+
+        self.viewpoint.getField("position").setSFVec3f(self.viewpoint_position)
+        self.viewpoint.getField("orientation").setSFRotation(self.viewpoint_orientation)
+
+        self.reset_count += 1
+        if self.done_reason != "":
+            print(f"Reward: {self.episode_accumulated_reward}, steps: {self.current_timestep}, "
+                  f"done reason:{self.done_reason}")
+        if self.done_reason == "Collision":
+            self.collision_termination_count += 1
+        elif self.done_reason == "Reached Target":
+            self.reach_target_count += 1
+        elif self.done_reason == "Timeout":
+            self.timeout_count += 1
+        self.done_reason =""
+        self.current_timestep = 0
+        self.initial_target_distance = get_distance_from_target(self.supervisor, self.target)
+        self.initial_target_angle = get_angle_from_target(self.supervisor, self.target)
+        self.min_dist_reached_list.append(self.min_distance_reached)
+        self.min_dist_reached = self.initial_target_distance - 0.01
+        self.episode_accumated_reward = 0.0
+        self.current_dist_sensors = [self.ds_max[i] for i in range(len(self.distance_sensors))]
+        self.previous_dist_sensors = [self.ds_max[i] for i in range(len(self.distance_sensors))]
+        self.current_touch_sensors = [0.0, 0.0]
+        self.current_position = list(self.supervisor.getPosition()[:2])
+        self.previous_position = list(self.supervisor.getPosition()[:2])
+        self.current_rotation_change = 0.0
+        self.previous_rotation_change = 0.0
+        self.current_tar_d = 0.0
+        self.previous_tar_d = 0.0
+        self.touched_obstacle_left = False
+        self.touched_obstacle_right = False
+        self.mask = [True for _ in range(self.action_space.n)]
+        return self.get_default_observation()
+
+    def clear_smoothness_list(self):
+        self.smoothnes_list = []
+    
+    def clear_min_dist_reached_list(self):
+        self.min_dist_reached_list = []
+    
+    def get_default_observation(self):
+        return [0.0 for _ in range(self.observation_space.shape[0])]
+        
+    def get_robot_rotation(self):
+        temp_rot = self.supervisor.getField("rotation").getSFRotation()
+        if temp_rot[2] < 0.0:
+            return -temp_rot[3]
+        else:
+            return temp_rot[3]
+        
+    def update_current_metrics(self):
+        self.previous_tar_d = self.current_tar_d
+        self.previous_tar_a = self.currrent_tar_a
+        self.previous_dist_sensors = self.current_dist_sensors
+        self.previous_position = self.current_position
+        self.previous_rotation = self.current_rotation
+        self.previous_rotation_change = self.current_rotation_change
+        
+        self.current_tar_d = get_distance_from_target(self.supervisor, self.target)
+        self.currrent_tar_a = get_angle_from_target(self.supervisorp, self.target)
+
+        self.current_position = list(self.supervisor.getPosition()[:2])
+        self.current_rotation = self.get_robot_rotation()
+        if self.current_rotation * self.previous_rotation < 0.0:
+            self.current_rotation_change = self.previous_rotation_change
+        else:
+            self.current_rotation_change = self.current_rotation - self.previous_rotation
+        
+        self.current_dist_sensors = []
+
         
     def apply_action(self, action):
         return super().apply_action(action)
