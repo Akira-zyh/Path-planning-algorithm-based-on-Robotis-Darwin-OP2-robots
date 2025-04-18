@@ -459,6 +459,17 @@ class NavigationRobotSupervisor(RobotSupervisor):
             if not any(reading_under_threshold_left):
                 if self.currrent_tar_a >= angle_threshold or any(reading_under_threshold_right):
                     self.mask[3] = False
+            
+            if any(reading_under_threshold_left) and any(reading_under_threshold_right):
+                sum_left = sum(reading_under_threshold_left)
+                sum_right = sum(reading_under_threshold_right)
+                if sum_left - sum_right < -5.0:
+                    self.mask[2] = True
+                elif sum_left - sum_right > 5.0:
+                    self.mask[3] = True
+                else:
+                    self.touched_obstacle_right = self.touched_obstacle_left = True
+        return self.mask
 
     def apply_action(self, action):
         return super().apply_action(action)
