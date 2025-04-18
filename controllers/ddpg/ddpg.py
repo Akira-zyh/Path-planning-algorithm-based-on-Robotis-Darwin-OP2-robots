@@ -283,7 +283,12 @@ class NavigationRobotSupervisor(RobotSupervisor):
         self.touch_sensor_left.enable(self.timestep)
         self.touch_sensor_right = self.supervisor.getDevice('ts-right')
         self.touch_sensor_right.enable(self.timestep)
+        self.gait_manager = RobotisOp2GaitManager(self.supervisor, "config.ini")
+        self.motion_manager = RobotisOp2MotionManager(self.supervisor)
         self.walk_parameters = [0.0, 0.0, 0.0]
+        self.set_velocity = (self.gait_manager.setXAmplitude(self.walk_parameters[0]),
+                             self.gait_manager.setYAmplitude(self.walk_parameters[1]),
+                             self.gait_manager.setAAmplitude(self.walk_parameters[2]))
         self.NMOTORS = 20
         self.motorNames = [
             "ShoulderR", "ShoulderL", "ArmUpperR", "ArmUpperL", "ArmLowerR",
@@ -305,8 +310,6 @@ class NavigationRobotSupervisor(RobotSupervisor):
         self.gyro.enable(self.timestep)
         self.camera = self.supervisor.getDevice("Camera")
         self.camera.enable(self.timestep)
-        self.gait_manager = RobotisOp2GaitManager(self.supervisor, "config.ini")
-        self.motion_manager = RobotisOp2MotionManager(self.supervisor)
         # self.camera.recognitionEnable(self.timestep)
         # self.camera.enableRecognitionSegmentation()
         # self.compass = self.supervisor.getDevice("compass")
@@ -737,10 +740,63 @@ class NavigationRobotSupervisor(RobotSupervisor):
             self.current_rotation_change = self.current_rotation - self.previous_rotation
         
         self.current_dist_sensors = []
-
+        for ds in self.distance_sensors:
+            self.current_dist_sensors.append(ds.getValue())
         
+        for i in self.ds_denial_list:
+            self.current_dist_sensors[i] = self.ds_max[i]
+        
+        self.current_touch_sensors = [self.touch_sensor_left.getValue(), self.touch_sensor_right.getValue()]
+    
+    def step(self, action):
+        action = self.apply_action(action)
+        if super(Supervisor, self).step(self.timestep) == -1:
+            exit()
+        self.update_current_metrics()
+        self.current_timestep += 1
+        obs = self.get_observations(action)
+        reward = self.get_reward(action)
+        done = self.is_done()
+        info = self.get_info()
+
+        if self.just_reset:
+            self.just_reset = False
+        
+        return (
+            obs,
+            reward,
+            done,
+            info
+        )
+    
     def apply_action(self, action):
-        return super().apply_action(action)
+        key = self.keyboard.getKey()
+        if key == ord("O"):
+            print("==Latest observation==\n", self.obs_memory[-1])
+        if key == ord("R"):
+            print("==  Latest reward   ==\n", self.get_reward(action))
+        if key == ord("M"):
+            print("==   Current mask   ==")
+            names = ["Forward", "Backward", "Left", "Right", "No action"]
+            print([names[i] for i in range(len(self.mask)) if self.mask[i]])
+            print(self.walk_parameters)
+        
+        if self.manual_control:
+            action = 4
+        if key == Keyboard.UP and self.mask[0]:
+            action = 0
+        if key == Keyboard.DOWN and self.mask[1]:
+            action = 1
+        if key == Keyboard.LEFT and self.mask[2]:
+            action = 2
+        if key == Keyboard.RIGHT and self.mask[3]:
+            action = 3
+        if key == ord("X"):
+            action = 4
+            self.walk_parameters = [0.0, 0.0]
+        if action == 0:
+            if self.walk_parameters[0] < 1.0:
+                self.walk_parameters += 0.25
 
     def get_info(self):
         return super().get_info()
