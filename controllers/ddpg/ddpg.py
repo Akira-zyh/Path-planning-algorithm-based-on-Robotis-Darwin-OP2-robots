@@ -176,7 +176,7 @@ class NavigationRobotSupervisor(RobotSupervisor):
         self.seed = seed
         if seed is not None:
             random.seed(seed)
-        self.environment_description = description
+        self.experiment_description = description
         self.manual_control = manual_control
         
         self.viewpoint = self.supervisor.getFromDef("VIEWPOINT")
@@ -289,6 +289,10 @@ class NavigationRobotSupervisor(RobotSupervisor):
         self.set_velocity = (self.gait_manager.setXAmplitude(self.walk_parameters[0]),
                              self.gait_manager.setYAmplitude(self.walk_parameters[1]),
                              self.gait_manager.setAAmplitude(self.walk_parameters[2]))
+        self.led_head = self.supervisor.getDevice("HeadLed")
+        self.led_eye = self.supervisor.getDevice("EyeLed")
+        self.led_head.set(0xFFFF00)
+        self.led_eye.set(0xFF0400)
         self.NMOTORS = 20
         self.motorNames = [
             "ShoulderR", "ShoulderL", "ArmUpperR", "ArmUpperL", "ArmLowerR",
@@ -310,6 +314,29 @@ class NavigationRobotSupervisor(RobotSupervisor):
         self.gyro.enable(self.timestep)
         self.camera = self.supervisor.getDevice("Camera")
         self.camera.enable(self.timestep)
+        # self.motors[18].setPosition(0.0) # neck
+        # self.motors[19].setPosition(-0.18) # head
+        # self.motors[7].setPosition(-0.03) # PelvYL
+        # self.motors[9].setPosition(0.0) # PelvL
+        # self.motors[11].setPosition(1.15) #LegUpperL
+        # self.motors[13].setPosition(-2.25) # LegLowerL
+        # self.motors[15].setPosition(-1.22) # AnkleL
+        # self.motors[17].setPosition(-0.043) # FootL
+        # self.motors[6].setPosition(0.03) # PelvYR
+        # self.motors[8].setPosition(0.0) # PelvR
+        # self.motors[10].setPosition(-1.15) # LegUpperR
+        # self.motors[12].setPosition(2.25) # LegLowerR
+        # self.motors[14].setPosition(1.22) # AnkleR
+        # self.motors[16].setPosition(0.043) # FootR
+        # self.motors[1].setPosition(0.75) # ShoulderL
+        # self.motors[3].setPosition(0.274) # ArmUpperL
+        # self.motors[5].setPosition(-0.5) # ArmLowerL
+        # self.motors[0].setPosition(-0.75) # ShoulderR
+        # self.motors[2].setPosition(-0.274) # ArmUpperR
+        # self.motors[4].setPosition(0.5)  # ArmLowerR
+        self.gait_manager.setBalanceEnable(True)
+        self.fup = 0
+        self.fdown = 0
         # self.camera.recognitionEnable(self.timestep)
         # self.camera.enableRecognitionSegmentation()
         # self.compass = self.supervisor.getDevice("compass")
@@ -407,6 +434,12 @@ class NavigationRobotSupervisor(RobotSupervisor):
         self.path_to_target = []
         self.min_target_dist = 1
         self.max_target_dist = 1
+        
+        self.supervisor.step(self.timestep)
+        self.motion_manager.playPage(9)
+        self.supervisor.step(self.timestep)
+        self.motors[19].setPosition(0.5)
+        self.gait_manager.start()
 
     def set_reward_weight_dict(self, target_distance_weight, target_angle_weight, dist_sensors_weight, 
                                target_reach_weight, collision_weight, smoothness_weight, fall_down_weight):
@@ -649,7 +682,12 @@ class NavigationRobotSupervisor(RobotSupervisor):
         self.collisions_counter = 0
         
         self.supervisor.getField("rotation").setSFRotation([0.0, 0.0, 1.0, random.uniform(-np.pi, np.pi)])
-        
+        self.supervisor.step(self.timestep)
+        self.motion_manager.playPage(9)
+        self.supervisor.step(self.timestep)
+        self.motors[19].setPosition(0.5)
+        self.gait_manager.start()
+         
         if self.current_difficulty["type"] == "random":
             while True:
                 self.randomize_map("random")
@@ -793,13 +831,179 @@ class NavigationRobotSupervisor(RobotSupervisor):
             action = 3
         if key == ord("X"):
             action = 4
-            self.walk_parameters = [0.0, 0.0]
+            self.walk_parameters = [0.0, 0.0, 0.0]
+
         if action == 0:
-            if self.walk_parameters[0] < 1.0:
-                self.walk_parameters += 0.25
+            self.walk_parameters = [1.0, 0.0, 0.0]
+        if action == 1:
+            self.walk_parameters = [-1.0, 0.0, 0.0]
+        if action == 2:
+            self.walk_parameters = [0.3, 0.5, 0.0]
+        if action == 3:
+            self.walk_parameters = [0.3, -0.5, 0.0]
+        if action == 4:
+            self.walk_parameters = [0.0, 0.0, 0.0]
+        
+        self.set_velocity(self.walk_parameters[0], self.walk_parameters[1])
+
+    def set_velocity(self, x_a, a_a):
+        self.gait_manager.setXAmplitude(x_a)
+        self.gait_manager.setAAmplitude(a_a)
 
     def get_info(self):
-        return super().get_info()
+        if self.done_reason != "":
+            return {"done_reason": self.done_reason}
+        else:
+            return {}
     
+    def render(self, mode="human"):
+        print("render() is not used")
+    
+    def export_parameters(self, path, net_arch, gamma, gae_lambda, 
+                          target_kl, vf_coef, ent_coef, n_steps, batch_size):
+        import json
+        param_dict = {
+            "experiment_description": self.experiment_description,
+            "seed": self.seed,
+            "n_steps": n_steps,
+            "batch_size": batch_size,
+            "maximum_episode_steps": self.maximum_episode_steps,
+            "add_action_to_obs": self.add_action_to_obs,
+            "step_window": self.step_window,
+            "seconds_window": self.seconds_window,
+            "ds_params": {
+                "max range": self.ds_max,
+                "type": self.ds_type,
+                "rays": self.ds_n_rays,
+                "aperture": self.ds_aperture,
+                "resolution": self.ds_resolution,
+                "noise": self.ds_noise,
+                "minimum thresholds": self.ds_thresholds
+            },
+            "rewards_weights": self.reward_weight_dict,
+            "map_width": self.map_width,
+            "map_height": self.map_height,
+            "cell_size": self.cell_size,
+            "difficulty": self.current_difficulty,
+            "ppo_params": {
+                "net_arch": net_arch,
+                "gamma": gamma,
+                "gae_lambda": gae_lambda,
+                "target_kl": target_kl,
+                "vf_coef": vf_coef,
+                "ent_coef": ent_coef,
+            }
+        }
+        with open(path, 'w') as fp:
+            json.dump(param_dict, fp, indent=4)
+
+    def remove_objects(self):
+        for object_node, starting_pos in zip(self.all_obstacles, self.all_obstacles_starting_positions):
+            object_node.getField("translation").setSFVec3f(starting_pos)
+            object_node.getField("rotation").setSFVec3f([0, 0, 1, 0])
+        for path_node, starting_pos in zip(self.all_path_nodes, self.all_path_nodes_starting_positions):
+            path_node.getField("translation").setSFVec3f(starting_pos)
+            path_node.getField("rotation").setSFVec3f([0, 0, 1, 0]) 
+        for wall_node, starting_pos in zip(self.walls, self.walls_starting_positions):
+            wall_node.getField("translation").setSFVec3f(starting_pos)
+            wall_node.getField("rotation").setSFVec3f([0, 0, 1, -1.5708]) 
+
+    def randomize_map(self, type="random"):
+        self.remove_objects() 
+        self.map.empty()
+        robot_z = 0.316683
+        
+        if type == "random":
+            self.map.add_random(self.supervisor, robot_z)
+            for obs_node in random.sample(self.all_obstacles, self.number_of_obstacles):
+                self.map.add_random(obs_node)
+                obs_node.getField("rotation").setSFRotation([0.0, 0.0, 1.0, random.uniform(-np.pi, np.pi)])
+        elif type == "corridor":
+            self.map.add_cell((self.map_width - 1) // 2, self.map_height - 1, self.supervisor, robot_z)
+            robot_coordinates = [(self.map_width - 1) // 2, self.map_height - 1]
+            if self.max_target_dist > self.map_height - 1:
+                print(f"max_target_dist set out of range, setting to: {min(self.max_target_dist, self.map_height - 1)}")
+            if self.min_target_dist > self.map_height - 1:
+                print(f"min_target_dist set out of range, setting to: {min(self.min_target_dist, self.map_height - 1)}")
+            min_target_pos = self.map_height - 1 - min(self.max_target_dist, self.map_height - 1)
+            max_target_pos = self.map_height - 1 - min(self.min_target_dist, self.map_height - 1)
+            if min_target_pos == max_target_pos:
+                target_y = min_target_pos
+            else:
+                target_y = random.randint(min_target_pos, max_target_pos)
+            self.map.add_cell(robot_coordinates[0], target_y, self.target)
+
+            if abs(robot_coordinates[1] - target_y) > 1:
+                def add_two_obstacles():
+                    col_choices = [robot_coordinates[0] + i for i in range(-1, 2, 1)]
+                    random_col_1_ = random.choice(col_choices)
+                    col_choices.remove(random_col_1_)
+                    random_col_2_ = random.choice(col_choices)
+                    col_choices.remove(random_col_2_)
+                    return col_choices[0], random_col_1_, random_col_2_
+
+                max_obstacles = (abs(robot_coordinates[1] - target_y) - 1) * 2
+                random_sample = random.sample(self.all_obstacles, min(max_obstacles, self.number_of_obstacles))
+                prev_free_col = 0
+                for row_coord, obs_node_index in zip(range(target_y + 1, robot_coordinates[1]), range(0, len(random_sample), 2)):
+                    if prev_free_col == 0:
+                        prev_free_col, random_col_1, random_col_2 = add_two_obstacles()
+                    else:
+                        current_free_col, random_col_1, random_col_2 = add_two_obstacles()
+                        while abs(prev_free_col - current_free_col) == 2:
+                            current_free_col, random_col_1, random_col_2 = add_two_obstacles()
+                        prev_free_col = current_free_col
+                    self.map.add_cell(random_col_1, row_coord, random_sample[obs_node_index])
+                    random_sample[obs_node_index].getField("rotation").setSFRotation([0.0, 0.0, 1.0, random.uniform(-np.pi, np.pi)])
+                    self.map.add_cell(random_col_2, row_coord, random_sample[obs_node_index + 1])
+                    random_sample[obs_node_index + 1].getField("rotation").setSFRotation([0.0, 0.0, 1.0, random.uniform(-np.pi, np.pi)])
+                
+            for row_coord in range(target_y + 1, robot_coordinates[1]):
+                self.map.add_cell(robot_coordinates[0] - 2, row_coord, self.walls[0])
+                self.map.add_cell(robot_coordinates[0] + 2, row_coord, self.walls[1])
+            new_position = [0.75, self.walls_starting_positions[0][1], self.walls_starting_positions[0][2]]
+            self.walls[0].getField("translation").setSFVec3f(new_position)
+            new_position = [0.75, self.walls_starting_positions[1][1], self.walls_starting_positions[1][2]]
+            self.walls[1].getField("translation").setSFVec3f(new_position)
+
+    def get_random_path(self, add_target=True):
+        robot_coordinates = self.map.find_by_name("robot")
+        if add_target:
+            if not self.map.add_near(robot_coordinates[0], robot_coordinates[1], self.target, min_distance=self.min_target_dist, max_distance=self.max_target_dist):
+                return None
+        return self.map.bfs_path(robot_coordinates, self.map.find_by_name("target"))
+    
+    def place_path(self, path):
+        for p, l in zip(path, self.all_path_nodes):
+            self.map.add_cell(p[0], p[1], l)
+    
+    def find_dist_to_path(self):
+        def dist_to_line_segm(p, l1, l2):
+            v = l2 - l1
+            w = p - l1
+            c1 = np.dot(w, v)
+            if c1 <= 0:
+                return np.linalg.norm(p - l1), l1
+            c2 = np.dot(v, v)
+            if c2 <= c1:
+                return np.linalg.norm(p - l2), l2
+            b = c1 / c2
+            pb = l1 + b * v
+            return np.linalg.norm(p - pb), pb
+        np_path = np.array([self.map.get_world_coordinates(self.path_to_target[i][0], self.path_to_target[i][1])
+                            for i in range(len(self.path_to_target))])
+        robot_pos = np.array(self.robot.getPosition()[:2])
+        if len(np_path) == 1:
+            return np.linalg.norm(np_path[0] - robot_pos), np_path[0]
+        
+        min_distance = float("inf")
+        closest_point = None
+        for i in range(np_path.shape[0] - 1):
+            edge = np.array([np_path[i], np_path[i + 1]])
+            distance, point_on_line = dist_to_line_segm(robot_pos, edge[0], edge[1])
+            min_distance = min(min_distance, distance)
+            closest_point = point_on_line
+        return min_distance, closest_point
+            
     
 env = NavigationRobotSupervisor(description="")

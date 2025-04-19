@@ -1,182 +1,470 @@
 #VRML_SIM R2022a utf8
 WorldInfo {
 }
-Viewpoint {
-  orientation 0.061338832391591956 -0.9050855030359954 -0.4207823425892717 5.963761448716579
-  position -0.010035041815857515 2.0510844788253473 1.3020727907215168
+DEF VIEWPOINT Viewpoint {
+  orientation -0.016023931627607364 -0.0004750186087849263 0.9998714957295838 3.2010327936645098
+  position 1.0215738318274845 -0.9069443555532799 0.35577572805753455
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
 RectangleArena {
-  floorSize 10 10
+  floorSize 4 4
 }
-Solid {
-  translation 0 0 0.2074973172607834
-  rotation 0 1 0 0
+DEF PATH Group {
   children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 1 0 0
-        metalness 0
+    Solid {
+      translation -0.75 -1 0
+      name "path"
+    }
+    Solid {
+      translation 1 -1 0
+      name "path(1)"
+    }
+    Solid {
+      translation 1 1 0
+      name "path(2)"
+    }
+    Solid {
+      translation -1 1 0
+      name "path(3)"
+    }
+    Solid {
+      translation -1 0 0
+      name "path(4)"
+    }
+    Solid {
+      name "path(5)"
+    }
+  ]
+}
+DEF OBSTACLES Group {
+  children [
+    DEF obstacle1 Solid {
+      translation -0.00359653 -1.11569 0.2
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.4
+            radius 0.1
+          }
+        }
+      ]
+      name "solid(7)"
+      boundingObject Shape {
+        geometry Cylinder {
+          height 0.4
+          radius 0.1
+        }
       }
-      geometry Sphere {
-        radius 0.1
+    }
+    DEF obstacle2 Solid {
+      translation 0.787061 -0.0492802 0.2
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.4
+            radius 0.1
+          }
+        }
+      ]
+      name "solid(8)"
+      boundingObject Shape {
+        geometry Cylinder {
+          height 0.4
+          radius 0.1
+        }
+      }
+    }
+    DEF obstacle3 Solid {
+      translation -0.540135 0.673625 0.2
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.4
+            radius 0.1
+          }
+        }
+      ]
+      name "solid(9)"
+      boundingObject Shape {
+        geometry Cylinder {
+          height 0.4
+          radius 0.1
+        }
       }
     }
   ]
-  name "solid(7)"
-  boundingObject Sphere {
-    radius 0.1
-  }
+}
+DEF WALLS Group {
+  children [
+    DEF WALL_1 Solid {
+      translation 0.0196505 -1.45528 0.3
+      rotation 0 0 -1 1.57079
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 0
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.1 3 0.6
+          }
+        }
+      ]
+      boundingObject Shape {
+        geometry Box {
+          size 0.1 3 0.6
+        }
+      }
+    }
+    DEF WALL_2 Solid {
+      translation -0.49035 -0.445282 0.3
+      rotation 0 0 -1 1.57079
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 0
+            transparency 0.1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.1 2 0.6
+          }
+        }
+      ]
+      name "solid(4)"
+      boundingObject Shape {
+        geometry Box {
+          size 0.1 2 0.6
+        }
+      }
+    }
+    DEF WALL_3 Solid {
+      translation 0.0096494 0.45471 0.3
+      rotation 0 0 -1 1.57079
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 0
+            transparency 0.1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.1 1 0.6
+          }
+        }
+      ]
+      name "solid(5)"
+      boundingObject Shape {
+        geometry Box {
+          size 0.1 1 0.6
+        }
+      }
+    }
+    DEF WALL_4 Solid {
+      translation 0.0096506 1.46472 0.3
+      rotation 0 0 -1 1.57079
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 0
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.1 3 0.6
+          }
+        }
+      ]
+      name "solid(3)"
+      boundingObject Shape {
+        geometry Box {
+          size 0.1 3 0.6
+        }
+      }
+    }
+    DEF WALL_5 Solid {
+      translation -1.44 0 0.3
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 0
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.1 3 0.6
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject Shape {
+        geometry Box {
+          size 0.1 3 0.6
+        }
+      }
+    }
+    DEF WALL_6 Solid {
+      translation 1.46 0 0.3
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 0
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.1 3 0.6
+          }
+        }
+      ]
+      name "solid(2)"
+      boundingObject Shape {
+        geometry Box {
+          size 0.1 3 0.6
+        }
+      }
+    }
+    DEF WALL_7 Solid {
+      translation 0.45888 0.00471 0.3
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 0
+            transparency 0.1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.1 1 0.6
+          }
+        }
+      ]
+      name "solid(6)"
+      boundingObject Shape {
+        geometry Box {
+          size 0.1 1 0.6
+        }
+      }
+    }
+  ]
 }
 RobotisOp2 {
-  hidden position_0_0 -2.0096725120005932e-07
-  hidden position_0_1 -9.201412772704765e-06
-  hidden position_0_2 8.040186516150212e-06
-  hidden position_0_3 0.7218667214040733
-  hidden position_0_4 -0.8447380047513446
-  hidden rotation_15 0.5774170132370818 0.577316894268761 0.5773168942757867 2.0943998839782036
-  hidden position_15_0 0.6999991149397264
-  hidden rotation_16 1 0 0 0.08540088506036562
-  hidden rotation_20 0.5773529388647994 0.5773488376035477 0.5773490310912555 2.094420133609669
-  hidden position_20_0 -0.00615083202290793
-  hidden rotation_21 0 0 1 0.0061508320228925
-  hidden position_21_0 0.6312415242484349
-  hidden rotation_22 -1 0 0 0.631241524248435
-  hidden position_22_0 -0.929222121933599
-  hidden rotation_23 1 0 0 0.9292221219335988
-  hidden position_23_0 -0.5237327956747477
-  hidden rotation_24 -1 0 0 0.5237327956747477
-  hidden position_24_0 -0.013815563646668708
-  hidden rotation_25 0 0 -1 0.013815563646674437
-  hidden rotation_26 0.5773293728742269 0.5773607409188971 0.5773606932085298 2.0944121454580715
-  hidden position_26_0 0.006151318375092332
-  hidden rotation_27 0 0 -1 0.006151318375104597
-  hidden position_27_0 -0.6312450798457271
-  hidden rotation_28 -1 0 0 0.6312450798457272
-  hidden position_28_0 0.9292275133488159
-  hidden rotation_29 0.9999999999999999 0 0 0.9292275133488159
-  hidden position_29_0 0.5237320979007124
-  hidden rotation_30 -1 0 0 0.5237320979007121
-  hidden position_30_0 0.01381549534919202
-  hidden rotation_31 0 0 1 0.013815495349178579
-  hidden rotation_32 0.673548330669652 0.6735483002465397 0.30440981174581483 2.550657182034622
-  hidden position_32_0 0.30717914465485935
-  hidden rotation_33 0 0 1 0.4782208553451076
-  hidden position_33_0 -0.5160585237160262
-  hidden rotation_34 -1 0 0 2.0868585237160193
-  hidden rotation_35 0.6829090063733473 0.6829091464390749 0.2593653537464509 2.6339348479002433
-  hidden position_35_0 -0.31178462710207716
-  hidden rotation_36 0 0 -1 0.47361537289788225
-  hidden position_36_0 0.5114509554347337
-  hidden rotation_37 -1 0 0 2.0822509554347284
-  translation 3.2383000440160097 2.380310109984425 0.316684407637945
-  rotation -0.056175347880946 0.8670257066865813 0.49508661286192035 0.26000711948745403
-  controller "vision"
+  hidden position_0_0 9.842838880809033e-11
+  hidden position_0_1 -1.3094273142010624e-06
+  hidden position_0_2 1.309900781728447e-06
+  hidden position_0_3 0.7218681094626409
+  hidden position_0_4 -0.8447391326595538
+  hidden rotation_25 0.5774169353019314 0.5773169332466296 0.5773169332465762 2.0944000008777195
+  hidden position_25_0 0.49999994747345405
+  hidden rotation_26 1 0 0 0.2854000525266962
+  hidden rotation_30 0.5773559764657025 0.5773473187482493 0.5773475123125957 2.0944155771855084
+  hidden position_30_0 -0.006144490183011019
+  hidden rotation_31 0 0 1 0.006144490183030245
+  hidden position_31_0 0.6312493587050165
+  hidden rotation_32 -1 0 0 0.6312493587050163
+  hidden position_32_0 -0.9292150006185246
+  hidden rotation_33 1 0 0 0.9292150006185245
+  hidden position_33_0 -0.523739580686823
+  hidden rotation_34 -1 0 0 0.523739580686823
+  hidden position_34_0 -0.013822305344705658
+  hidden rotation_35 0 0 -1 0.01382230534471139
+  hidden rotation_36 0.5773267823752924 0.5773620360776192 0.5773619883993902 2.0944160312648727
+  hidden position_36_0 0.006144056251881963
+  hidden rotation_37 0 0 -1 0.006144056251892986
+  hidden position_37_0 -0.6312493544517436
+  hidden rotation_38 -1 0 0 0.6312493544517436
+  hidden position_38_0 0.9292150008614358
+  hidden rotation_39 1 0 0 0.9292150008614359
+  hidden position_39_0 0.523737264531085
+  hidden rotation_40 -1 0 0 0.523737264531085
+  hidden position_40_0 0.013822309622940543
+  hidden rotation_41 0 0 0.9999999999999999 0.013822309622936709
+  hidden rotation_42 0.6735484461031347 0.6735484156574042 0.3044093009706722 2.550658116959192
+  hidden position_42_0 0.30717797737869645
+  hidden rotation_43 0 0 1 0.4782220226212817
+  hidden position_43_0 -0.5160589317219247
+  hidden rotation_44 -0.9999999999999999 0 0 2.0868589317219195
+  hidden rotation_45 0.6829090844126299 0.682909224511688 0.25936494270342014 2.6339356181591205
+  hidden position_45_0 -0.31178563909891516
+  hidden rotation_46 0 0 -1 0.47361436090106834
+  hidden position_46_0 0.5114512347316787
+  hidden rotation_47 -1 0 0 2.082251234731676
+  translation -1.0795782068201072 -0.903319502989495 0.3166826448391711
+  rotation 0.04585470087790618 0.9131794943297612 -0.40496982300294854 0.2470656194923639
+  controller "ddpg"
   supervisor TRUE
   plasticColor 1 0.333333 0
-  cameraHeight 224
   bodySlot [
-    Lidar {
-      translation 0.0172497 -5.02956e-07 0.00885315
-      rotation 1.0201599999469147e-05 0.9999999999479636 9.589799999500981e-09 -0.261795307179586
-      fieldOfView 3.14159
-      numberOfLayers 1
-      maxRange 2
+    TouchSensor {
+      name "ts-left"
     }
-    Camera {
-      translation 0 0 0.06
-      exposure 0.6
-      focus Focus {
-        focalDistance 3
-        maxFocalDistance 4
-      }
-      recognition Recognition {
-        segmentation TRUE
-      }
+    TouchSensor {
+      name "ts-right"
     }
-    InertialUnit {
-      translation 0 0 0.06
-      name "imu"
-    }
-    GPS {
-      translation 0 0 0.05
-    }
-    Compass {
-      translation 0 0 0.05
+    Group {
+      children [
+        DistanceSensor {
+          rotation 0 1 0 0
+          name "ds0"
+          lookupTable [
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          name "ds1"
+          lookupTable [
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          name "ds2"
+          lookupTable [
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          name "ds3"
+          lookupTable [
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          name "ds4"
+          lookupTable [
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          name "ds5"
+          lookupTable [
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          name "ds6"
+          lookupTable [
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          name "ds7"
+          lookupTable [
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 1.39067116124321e-309
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          name "ds8"
+          lookupTable [
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          name "ds9"
+          lookupTable [
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          name "ds10"
+          lookupTable [
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          name "ds11"
+          lookupTable [
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          name "ds12"
+          lookupTable [
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+      ]
     }
   ]
-}
-Solid {
-  translation 3.49965 4.95472 0.3
-  rotation 0 0 -1 1.57079
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 1 0.666667 0
-        roughness 1
-        metalness 0
-      }
-      geometry Box {
-        size 0.1 3 0.6
-      }
-    }
-  ]
-  boundingObject Shape {
-    geometry Box {
-      size 0.1 3 0.6
-    }
-  }
-}
-Solid {
-  translation 2.99965 2.94472 0.3
-  rotation 0 0 -1 1.57079
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 1 0.666667 0
-        roughness 1
-        metalness 0
-      }
-      geometry Box {
-        size 0.1 2 0.6
-      }
-    }
-  ]
-  name "solid(4)"
-  boundingObject Shape {
-    geometry Box {
-      size 0.1 2 0.6
-    }
-  }
-}
-Solid {
-  translation 3.49965 3.95472 0.3
-  rotation 0 0 -1 1.57079
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 1 0.666667 0
-        roughness 1
-        metalness 0
-      }
-      geometry Box {
-        size 0.1 1 0.6
-      }
-    }
-  ]
-  name "solid(5)"
-  boundingObject Shape {
-    geometry Box {
-      size 0.1 1 0.6
-    }
-  }
 }
 DEF TARGET Solid {
-  translation 3.5 3.5 0.3
-  rotation 0 0 -1 1.57079
+  translation 0 0 0.3
   children [
     Shape {
       appearance PBRAppearance {
@@ -190,89 +478,4 @@ DEF TARGET Solid {
     }
   ]
   name "target"
-}
-Solid {
-  translation 3.49965 2.05472 0.3
-  rotation 0 0 -1 1.57079
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 1 0.666667 0
-        roughness 1
-        metalness 0
-      }
-      geometry Box {
-        size 0.1 3 0.6
-      }
-    }
-  ]
-  name "solid(3)"
-  boundingObject Shape {
-    geometry Box {
-      size 0.1 3 0.6
-    }
-  }
-}
-Solid {
-  translation 2.04472 3.50014 0.3
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 1 0.666667 0
-        roughness 1
-        metalness 0
-      }
-      geometry Box {
-        size 0.1 3 0.6
-      }
-    }
-  ]
-  name "solid(1)"
-  boundingObject Shape {
-    geometry Box {
-      size 0.1 3 0.6
-    }
-  }
-}
-Solid {
-  translation 4.94888 3.50471 0.3
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 1 0.666667 0
-        roughness 1
-        metalness 0
-      }
-      geometry Box {
-        size 0.1 3 0.6
-      }
-    }
-  ]
-  name "solid(2)"
-  boundingObject Shape {
-    geometry Box {
-      size 0.1 3 0.6
-    }
-  }
-}
-Solid {
-  translation 3.94888 3.45471 0.3
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 1 0.666667 0
-        roughness 1
-        metalness 0
-      }
-      geometry Box {
-        size 0.1 1 0.6
-      }
-    }
-  ]
-  name "solid(6)"
-  boundingObject Shape {
-    geometry Box {
-      size 0.1 1 0.6
-    }
-  }
 }
