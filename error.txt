@@ -1,0 +1,668 @@
+ conda uninstall gym                                                           in cmd at 22:27:32
+Channels:
+ - defaults
+ - conda-forge
+Platform: win-64
+Collecting package metadata (repodata.json): failed
+
+CondaError: KeyboardInterrupt
+
+终止批处理操作吗(Y/N)? y
+
+ akira   ~    pip uninstall gym                                                             in cmd at 22:28:50
+Found existing installation: gym 0.21.0
+Uninstalling gym-0.21.0:
+  Would remove:
+    c:\users\akira\anaconda3\envs\webots2\lib\site-packages\gym-0.21.0.dist-info\*
+    c:\users\akira\anaconda3\envs\webots2\lib\site-packages\gym\*
+Proceed (Y/n)? y
+  Successfully uninstalled gym-0.21.0
+
+ akira   ~    pip install gym==0.21.0 --prefer-binary                                       in cmd at 22:28:55
+Collecting gym==0.21.0
+  Using cached gym-0.21.0.tar.gz (1.5 MB)
+  Preparing metadata (setup.py) ... error
+  error: subprocess-exited-with-error
+
+  × python setup.py egg_info did not run successfully.
+  │ exit code: 1
+  ╰─> [3 lines of output]
+      C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\setuptools\_distutils\dist.py:270: UserWarning: Unknown distribution option: 'tests_require'
+        warnings.warn(msg)
+      error in gym setup command: 'extras_require' must be a dictionary whose values are strings or lists of strings containing valid project/version requirement specifiers.
+      [end of output]
+
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
+
+ akira   ~    pip install gym==0.21.0 --no-deps                                             in cmd at 22:29:14
+Collecting gym==0.21.0
+  Using cached gym-0.21.0.tar.gz (1.5 MB)
+  Preparing metadata (setup.py) ... error
+  error: subprocess-exited-with-error
+
+  × python setup.py egg_info did not run successfully.
+  │ exit code: 1
+  ╰─> [3 lines of output]
+      C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\setuptools\_distutils\dist.py:270: UserWarning: Unknown distribution option: 'tests_require'
+        warnings.warn(msg)
+      error in gym setup command: 'extras_require' must be a dictionary whose values are strings or lists of strings containing valid project/version requirement specifiers.
+      [end of output]
+
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
+
+ akira   ~    pip install opencv-python>=3.0                                                in cmd at 22:29:22
+
+ akira   ~    pip install gym==0.21.0 --no-deps                                             in cmd at 22:29:34
+Collecting gym==0.21.0
+  Using cached gym-0.21.0.tar.gz (1.5 MB)
+  Preparing metadata (setup.py) ... error
+  error: subprocess-exited-with-error
+
+  × python setup.py egg_info did not run successfully.
+  │ exit code: 1
+  ╰─> [3 lines of output]
+      C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\setuptools\_distutils\dist.py:270: UserWarning: Unknown distribution option: 'tests_require'
+        warnings.warn(msg)
+      error in gym setup command: 'extras_require' must be a dictionary whose values are strings or lists of strings containing valid project/version requirement specifiers.
+      [end of output]
+
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
+
+ akira   ~    pip install setuptools==65.5.0                                                in cmd at 22:29:37
+Collecting setuptools==65.5.0
+  Using cached setuptools-65.5.0-py3-none-any.whl.metadata (6.3 kB)
+Using cached setuptools-65.5.0-py3-none-any.whl (1.2 MB)
+Installing collected packages: setuptools
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 75.8.0
+    Uninstalling setuptools-75.8.0:
+      Successfully uninstalled setuptools-75.8.0
+Successfully installed setuptools-65.5.0
+
+ akira   ~    pip install gym==0.21.0 --no-deps                                             in cmd at 22:29:49
+Collecting gym==0.21.0
+  Using cached gym-0.21.0.tar.gz (1.5 MB)
+  Preparing metadata (setup.py) ... done
+WARNING: Ignoring version 0.21.0 of gym since it has invalid metadata:
+Requested gym==0.21.0 from https://files.pythonhosted.org/packages/4b/48/920cea66177b865663fde5a9390a59de0ef3b642ad98106ac1d8717d7005/gym-0.21.0.tar.gz has invalid metadata: Expected end or semicolon (after version specifier)
+    opencv-python>=3.
+                 ~~~^
+Please use pip<24.1 if you need to use this version.
+ERROR: Could not find a version that satisfies the requirement gym==0.21.0 (from versions: 0.0.2, 0.0.3, 0.0.4, 0.0.5, 0.0.6, 0.0.7, 0.1.0, 0.1.1, 0.1.2, 0.1.3, 0.1.4, 0.1.5, 0.1.6, 0.1.7, 0.2.0, 0.2.1, 0.2.2, 0.2.3, 0.2.4, 0.2.5, 0.2.6, 0.2.7, 0.2.8, 0.2.9, 0.2.10, 0.2.11, 0.2.12, 0.3.0, 0.4.0, 0.4.1, 0.4.2, 0.4.3, 0.4.4, 0.4.5, 0.4.6, 0.4.8, 0.4.9, 0.4.10, 0.5.0, 0.5.1, 0.5.2, 0.5.3, 0.5.4, 0.5.5, 0.5.6, 0.5.7, 0.6.0, 0.7.0, 0.7.1, 0.7.2, 0.7.3, 0.7.4, 0.8.0.dev0, 0.8.0, 0.8.1, 0.8.2, 0.9.0, 0.9.1, 0.9.2, 0.9.3, 0.9.4, 0.9.5, 0.9.6, 0.9.7, 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.10.4, 0.10.5, 0.10.8, 0.10.9, 0.10.11, 0.11.0, 0.12.0, 0.12.1, 0.12.4, 0.12.5, 0.12.6, 0.13.0, 0.13.1, 0.14.0, 0.15.3, 0.15.4, 0.15.6, 0.15.7, 0.16.0, 0.17.0, 0.17.1, 0.17.2, 0.17.3, 0.18.0, 0.18.3, 0.19.0, 0.20.0, 0.21.0, 0.22.0, 0.23.0, 0.23.1, 0.24.0, 0.24.1, 0.25.0, 0.25.1, 0.25.2, 0.26.0, 0.26.1, 0.26.2)
+ERROR: No matching distribution found for gym==0.21.0
+
+ akira   ~    pip install opencv-python>=3.0                                                in cmd at 22:29:53
+
+ akira   ~    pip install gym==0.21.0 --no-deps                                             in cmd at 22:29:58
+Collecting gym==0.21.0
+  Using cached gym-0.21.0.tar.gz (1.5 MB)
+  Preparing metadata (setup.py) ... done
+WARNING: Ignoring version 0.21.0 of gym since it has invalid metadata:
+Requested gym==0.21.0 from https://files.pythonhosted.org/packages/4b/48/920cea66177b865663fde5a9390a59de0ef3b642ad98106ac1d8717d7005/gym-0.21.0.tar.gz has invalid metadata: Expected end or semicolon (after version specifier)
+    opencv-python>=3.
+                 ~~~^
+Please use pip<24.1 if you need to use this version.
+ERROR: Could not find a version that satisfies the requirement gym==0.21.0 (from versions: 0.0.2, 0.0.3, 0.0.4, 0.0.5, 0.0.6, 0.0.7, 0.1.0, 0.1.1, 0.1.2, 0.1.3, 0.1.4, 0.1.5, 0.1.6, 0.1.7, 0.2.0, 0.2.1, 0.2.2, 0.2.3, 0.2.4, 0.2.5, 0.2.6, 0.2.7, 0.2.8, 0.2.9, 0.2.10, 0.2.11, 0.2.12, 0.3.0, 0.4.0, 0.4.1, 0.4.2, 0.4.3, 0.4.4, 0.4.5, 0.4.6, 0.4.8, 0.4.9, 0.4.10, 0.5.0, 0.5.1, 0.5.2, 0.5.3, 0.5.4, 0.5.5, 0.5.6, 0.5.7, 0.6.0, 0.7.0, 0.7.1, 0.7.2, 0.7.3, 0.7.4, 0.8.0.dev0, 0.8.0, 0.8.1, 0.8.2, 0.9.0, 0.9.1, 0.9.2, 0.9.3, 0.9.4, 0.9.5, 0.9.6, 0.9.7, 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.10.4, 0.10.5, 0.10.8, 0.10.9, 0.10.11, 0.11.0, 0.12.0, 0.12.1, 0.12.4, 0.12.5, 0.12.6, 0.13.0, 0.13.1, 0.14.0, 0.15.3, 0.15.4, 0.15.6, 0.15.7, 0.16.0, 0.17.0, 0.17.1, 0.17.2, 0.17.3, 0.18.0, 0.18.3, 0.19.0, 0.20.0, 0.21.0, 0.22.0, 0.23.0, 0.23.1, 0.24.0, 0.24.1, 0.25.0, 0.25.1, 0.25.2, 0.26.0, 0.26.1, 0.26.2)
+ERROR: No matching distribution found for gym==0.21.0
+
+ akira   ~    pip install setuptools==57.5.0                                                in cmd at 22:30:02
+Collecting setuptools==57.5.0
+  Using cached setuptools-57.5.0-py3-none-any.whl.metadata (4.9 kB)
+Using cached setuptools-57.5.0-py3-none-any.whl (819 kB)
+Installing collected packages: setuptools
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 65.5.0
+    Uninstalling setuptools-65.5.0:
+      Successfully uninstalled setuptools-65.5.0
+Successfully installed setuptools-57.5.0
+
+ akira   ~    pip install gym==0.21.0 --no-deps                                             in cmd at 22:30:27
+Collecting gym==0.21.0
+  Using cached gym-0.21.0.tar.gz (1.5 MB)
+  Preparing metadata (setup.py) ... done
+WARNING: Ignoring version 0.21.0 of gym since it has invalid metadata:
+Requested gym==0.21.0 from https://files.pythonhosted.org/packages/4b/48/920cea66177b865663fde5a9390a59de0ef3b642ad98106ac1d8717d7005/gym-0.21.0.tar.gz has invalid metadata: Expected end or semicolon (after version specifier)
+    opencv-python>=3.
+                 ~~~^
+Please use pip<24.1 if you need to use this version.
+ERROR: Could not find a version that satisfies the requirement gym==0.21.0 (from versions: 0.0.2, 0.0.3, 0.0.4, 0.0.5, 0.0.6, 0.0.7, 0.1.0, 0.1.1, 0.1.2, 0.1.3, 0.1.4, 0.1.5, 0.1.6, 0.1.7, 0.2.0, 0.2.1, 0.2.2, 0.2.3, 0.2.4, 0.2.5, 0.2.6, 0.2.7, 0.2.8, 0.2.9, 0.2.10, 0.2.11, 0.2.12, 0.3.0, 0.4.0, 0.4.1, 0.4.2, 0.4.3, 0.4.4, 0.4.5, 0.4.6, 0.4.8, 0.4.9, 0.4.10, 0.5.0, 0.5.1, 0.5.2, 0.5.3, 0.5.4, 0.5.5, 0.5.6, 0.5.7, 0.6.0, 0.7.0, 0.7.1, 0.7.2, 0.7.3, 0.7.4, 0.8.0.dev0, 0.8.0, 0.8.1, 0.8.2, 0.9.0, 0.9.1, 0.9.2, 0.9.3, 0.9.4, 0.9.5, 0.9.6, 0.9.7, 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.10.4, 0.10.5, 0.10.8, 0.10.9, 0.10.11, 0.11.0, 0.12.0, 0.12.1, 0.12.4, 0.12.5, 0.12.6, 0.13.0, 0.13.1, 0.14.0, 0.15.3, 0.15.4, 0.15.6, 0.15.7, 0.16.0, 0.17.0, 0.17.1, 0.17.2, 0.17.3, 0.18.0, 0.18.3, 0.19.0, 0.20.0, 0.21.0, 0.22.0, 0.23.0, 0.23.1, 0.24.0, 0.24.1, 0.25.0, 0.25.1, 0.25.2, 0.26.0, 0.26.1, 0.26.2)
+ERROR: No matching distribution found for gym==0.21.0
+
+ akira   ~    python -m pip install pip<24.1                                                in cmd at 22:30:30
+系统找不到指定的文件。
+
+ akira   ~    python -m pip install pip==24.1                                               in cmd at 22:30:51
+Collecting pip==24.1
+ERROR: Operation cancelled by user
+
+ akira   ~    python -m pip install pip==23                                                 in cmd at 22:30:56
+Collecting pip==23
+  Downloading pip-23.0-py3-none-any.whl.metadata (4.1 kB)
+Downloading pip-23.0-py3-none-any.whl (2.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 16.5 MB/s eta 0:00:00
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 25.0
+    Uninstalling pip-25.0:
+      Successfully uninstalled pip-25.0
+Successfully installed pip-23.0
+
+ akira   ~    pip install gym==0.21.0 --no-deps                                             in cmd at 22:31:05
+Collecting gym==0.21.0
+  Downloading gym-0.21.0.tar.gz (1.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 16.3 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Building wheels for collected packages: gym
+  Building wheel for gym (setup.py) ... error
+  error: subprocess-exited-with-error
+
+  × python setup.py bdist_wheel did not run successfully.
+  │ exit code: 1
+  ╰─> [475 lines of output]
+      running bdist_wheel
+      running build
+      running build_py
+      creating build
+      creating build\lib
+      creating build\lib\gym
+      copying gym\core.py -> build\lib\gym
+      copying gym\error.py -> build\lib\gym
+      copying gym\logger.py -> build\lib\gym
+      copying gym\version.py -> build\lib\gym
+      copying gym\__init__.py -> build\lib\gym
+      creating build\lib\gym\envs
+      copying gym\envs\registration.py -> build\lib\gym\envs
+      copying gym\envs\__init__.py -> build\lib\gym\envs
+      creating build\lib\gym\spaces
+      copying gym\spaces\box.py -> build\lib\gym\spaces
+      copying gym\spaces\dict.py -> build\lib\gym\spaces
+      copying gym\spaces\discrete.py -> build\lib\gym\spaces
+      copying gym\spaces\multi_binary.py -> build\lib\gym\spaces
+      copying gym\spaces\multi_discrete.py -> build\lib\gym\spaces
+      copying gym\spaces\space.py -> build\lib\gym\spaces
+      copying gym\spaces\tuple.py -> build\lib\gym\spaces
+      copying gym\spaces\utils.py -> build\lib\gym\spaces
+      copying gym\spaces\__init__.py -> build\lib\gym\spaces
+      creating build\lib\gym\utils
+      copying gym\utils\atomic_write.py -> build\lib\gym\utils
+      copying gym\utils\closer.py -> build\lib\gym\utils
+      copying gym\utils\colorize.py -> build\lib\gym\utils
+      copying gym\utils\env_checker.py -> build\lib\gym\utils
+      copying gym\utils\ezpickle.py -> build\lib\gym\utils
+      copying gym\utils\json_utils.py -> build\lib\gym\utils
+      copying gym\utils\play.py -> build\lib\gym\utils
+      copying gym\utils\seeding.py -> build\lib\gym\utils
+      copying gym\utils\__init__.py -> build\lib\gym\utils
+      creating build\lib\gym\vector
+      copying gym\vector\async_vector_env.py -> build\lib\gym\vector
+      copying gym\vector\sync_vector_env.py -> build\lib\gym\vector
+      copying gym\vector\vector_env.py -> build\lib\gym\vector
+      copying gym\vector\__init__.py -> build\lib\gym\vector
+      creating build\lib\gym\wrappers
+      copying gym\wrappers\atari_preprocessing.py -> build\lib\gym\wrappers
+      copying gym\wrappers\clip_action.py -> build\lib\gym\wrappers
+      copying gym\wrappers\filter_observation.py -> build\lib\gym\wrappers
+      copying gym\wrappers\flatten_observation.py -> build\lib\gym\wrappers
+      copying gym\wrappers\frame_stack.py -> build\lib\gym\wrappers
+      copying gym\wrappers\gray_scale_observation.py -> build\lib\gym\wrappers
+      copying gym\wrappers\monitor.py -> build\lib\gym\wrappers
+      copying gym\wrappers\normalize.py -> build\lib\gym\wrappers
+      copying gym\wrappers\order_enforcing.py -> build\lib\gym\wrappers
+      copying gym\wrappers\pixel_observation.py -> build\lib\gym\wrappers
+      copying gym\wrappers\record_episode_statistics.py -> build\lib\gym\wrappers
+      copying gym\wrappers\record_video.py -> build\lib\gym\wrappers
+      copying gym\wrappers\rescale_action.py -> build\lib\gym\wrappers
+      copying gym\wrappers\resize_observation.py -> build\lib\gym\wrappers
+      copying gym\wrappers\time_aware_observation.py -> build\lib\gym\wrappers
+      copying gym\wrappers\time_limit.py -> build\lib\gym\wrappers
+      copying gym\wrappers\transform_observation.py -> build\lib\gym\wrappers
+      copying gym\wrappers\transform_reward.py -> build\lib\gym\wrappers
+      copying gym\wrappers\__init__.py -> build\lib\gym\wrappers
+      creating build\lib\gym\envs\box2d
+      copying gym\envs\box2d\bipedal_walker.py -> build\lib\gym\envs\box2d
+      copying gym\envs\box2d\car_dynamics.py -> build\lib\gym\envs\box2d
+      copying gym\envs\box2d\car_racing.py -> build\lib\gym\envs\box2d
+      copying gym\envs\box2d\lunar_lander.py -> build\lib\gym\envs\box2d
+      copying gym\envs\box2d\__init__.py -> build\lib\gym\envs\box2d
+      creating build\lib\gym\envs\classic_control
+      copying gym\envs\classic_control\acrobot.py -> build\lib\gym\envs\classic_control
+      copying gym\envs\classic_control\cartpole.py -> build\lib\gym\envs\classic_control
+      copying gym\envs\classic_control\continuous_mountain_car.py -> build\lib\gym\envs\classic_control
+      copying gym\envs\classic_control\mountain_car.py -> build\lib\gym\envs\classic_control
+      copying gym\envs\classic_control\pendulum.py -> build\lib\gym\envs\classic_control
+      copying gym\envs\classic_control\rendering.py -> build\lib\gym\envs\classic_control
+      copying gym\envs\classic_control\__init__.py -> build\lib\gym\envs\classic_control
+      creating build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\ant.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\ant_v3.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\half_cheetah.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\half_cheetah_v3.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\hopper.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\hopper_v3.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\humanoid.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\humanoidstandup.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\humanoid_v3.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\inverted_double_pendulum.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\inverted_pendulum.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\mujoco_env.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\pusher.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\reacher.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\striker.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\swimmer.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\swimmer_v3.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\thrower.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\walker2d.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\walker2d_v3.py -> build\lib\gym\envs\mujoco
+      copying gym\envs\mujoco\__init__.py -> build\lib\gym\envs\mujoco
+      creating build\lib\gym\envs\robotics
+      copying gym\envs\robotics\fetch_env.py -> build\lib\gym\envs\robotics
+      copying gym\envs\robotics\hand_env.py -> build\lib\gym\envs\robotics
+      copying gym\envs\robotics\robot_env.py -> build\lib\gym\envs\robotics
+      copying gym\envs\robotics\rotations.py -> build\lib\gym\envs\robotics
+      copying gym\envs\robotics\utils.py -> build\lib\gym\envs\robotics
+      copying gym\envs\robotics\__init__.py -> build\lib\gym\envs\robotics
+      creating build\lib\gym\envs\toy_text
+      copying gym\envs\toy_text\blackjack.py -> build\lib\gym\envs\toy_text
+      copying gym\envs\toy_text\cliffwalking.py -> build\lib\gym\envs\toy_text
+      copying gym\envs\toy_text\discrete.py -> build\lib\gym\envs\toy_text
+      copying gym\envs\toy_text\frozen_lake.py -> build\lib\gym\envs\toy_text
+      copying gym\envs\toy_text\taxi.py -> build\lib\gym\envs\toy_text
+      copying gym\envs\toy_text\__init__.py -> build\lib\gym\envs\toy_text
+      creating build\lib\gym\envs\unittest
+      copying gym\envs\unittest\cube_crash.py -> build\lib\gym\envs\unittest
+      copying gym\envs\unittest\memorize_digits.py -> build\lib\gym\envs\unittest
+      copying gym\envs\unittest\__init__.py -> build\lib\gym\envs\unittest
+      creating build\lib\gym\envs\robotics\fetch
+      copying gym\envs\robotics\fetch\pick_and_place.py -> build\lib\gym\envs\robotics\fetch
+      copying gym\envs\robotics\fetch\push.py -> build\lib\gym\envs\robotics\fetch
+      copying gym\envs\robotics\fetch\reach.py -> build\lib\gym\envs\robotics\fetch
+      copying gym\envs\robotics\fetch\slide.py -> build\lib\gym\envs\robotics\fetch
+      copying gym\envs\robotics\fetch\__init__.py -> build\lib\gym\envs\robotics\fetch
+      creating build\lib\gym\envs\robotics\hand
+      copying gym\envs\robotics\hand\manipulate.py -> build\lib\gym\envs\robotics\hand
+      copying gym\envs\robotics\hand\manipulate_touch_sensors.py -> build\lib\gym\envs\robotics\hand
+      copying gym\envs\robotics\hand\reach.py -> build\lib\gym\envs\robotics\hand
+      copying gym\envs\robotics\hand\__init__.py -> build\lib\gym\envs\robotics\hand
+      creating build\lib\gym\vector\utils
+      copying gym\vector\utils\misc.py -> build\lib\gym\vector\utils
+      copying gym\vector\utils\numpy_utils.py -> build\lib\gym\vector\utils
+      copying gym\vector\utils\shared_memory.py -> build\lib\gym\vector\utils
+      copying gym\vector\utils\spaces.py -> build\lib\gym\vector\utils
+      copying gym\vector\utils\__init__.py -> build\lib\gym\vector\utils
+      creating build\lib\gym\wrappers\monitoring
+      copying gym\wrappers\monitoring\stats_recorder.py -> build\lib\gym\wrappers\monitoring
+      copying gym\wrappers\monitoring\video_recorder.py -> build\lib\gym\wrappers\monitoring
+      copying gym\wrappers\monitoring\__init__.py -> build\lib\gym\wrappers\monitoring
+      creating build\lib\gym\envs\mujoco\assets
+      copying gym\envs\mujoco\assets\ant.xml -> build\lib\gym\envs\mujoco\assets
+      copying gym\envs\mujoco\assets\half_cheetah.xml -> build\lib\gym\envs\mujoco\assets
+      copying gym\envs\mujoco\assets\hopper.xml -> build\lib\gym\envs\mujoco\assets
+      copying gym\envs\mujoco\assets\humanoid.xml -> build\lib\gym\envs\mujoco\assets
+      copying gym\envs\mujoco\assets\humanoidstandup.xml -> build\lib\gym\envs\mujoco\assets
+      copying gym\envs\mujoco\assets\inverted_double_pendulum.xml -> build\lib\gym\envs\mujoco\assets
+      copying gym\envs\mujoco\assets\inverted_pendulum.xml -> build\lib\gym\envs\mujoco\assets
+      copying gym\envs\mujoco\assets\point.xml -> build\lib\gym\envs\mujoco\assets
+      copying gym\envs\mujoco\assets\pusher.xml -> build\lib\gym\envs\mujoco\assets
+      copying gym\envs\mujoco\assets\reacher.xml -> build\lib\gym\envs\mujoco\assets
+      copying gym\envs\mujoco\assets\striker.xml -> build\lib\gym\envs\mujoco\assets
+      copying gym\envs\mujoco\assets\swimmer.xml -> build\lib\gym\envs\mujoco\assets
+      copying gym\envs\mujoco\assets\thrower.xml -> build\lib\gym\envs\mujoco\assets
+      copying gym\envs\mujoco\assets\walker2d.xml -> build\lib\gym\envs\mujoco\assets
+      creating build\lib\gym\envs\classic_control\assets
+      copying gym\envs\classic_control\assets\clockwise.png -> build\lib\gym\envs\classic_control\assets
+      creating build\lib\gym\envs\robotics\assets
+      copying gym\envs\robotics\assets\LICENSE.md -> build\lib\gym\envs\robotics\assets
+      creating build\lib\gym\envs\robotics\assets\fetch
+      copying gym\envs\robotics\assets\fetch\pick_and_place.xml -> build\lib\gym\envs\robotics\assets\fetch
+      copying gym\envs\robotics\assets\fetch\push.xml -> build\lib\gym\envs\robotics\assets\fetch
+      copying gym\envs\robotics\assets\fetch\reach.xml -> build\lib\gym\envs\robotics\assets\fetch
+      copying gym\envs\robotics\assets\fetch\robot.xml -> build\lib\gym\envs\robotics\assets\fetch
+      copying gym\envs\robotics\assets\fetch\shared.xml -> build\lib\gym\envs\robotics\assets\fetch
+      copying gym\envs\robotics\assets\fetch\slide.xml -> build\lib\gym\envs\robotics\assets\fetch
+      creating build\lib\gym\envs\robotics\assets\hand
+      copying gym\envs\robotics\assets\hand\manipulate_block.xml -> build\lib\gym\envs\robotics\assets\hand
+      copying gym\envs\robotics\assets\hand\manipulate_block_touch_sensors.xml -> build\lib\gym\envs\robotics\assets\hand
+      copying gym\envs\robotics\assets\hand\manipulate_egg.xml -> build\lib\gym\envs\robotics\assets\hand
+      copying gym\envs\robotics\assets\hand\manipulate_egg_touch_sensors.xml -> build\lib\gym\envs\robotics\assets\hand
+      copying gym\envs\robotics\assets\hand\manipulate_pen.xml -> build\lib\gym\envs\robotics\assets\hand
+      copying gym\envs\robotics\assets\hand\manipulate_pen_touch_sensors.xml -> build\lib\gym\envs\robotics\assets\hand
+      copying gym\envs\robotics\assets\hand\reach.xml -> build\lib\gym\envs\robotics\assets\hand
+      copying gym\envs\robotics\assets\hand\robot.xml -> build\lib\gym\envs\robotics\assets\hand
+      copying gym\envs\robotics\assets\hand\robot_touch_sensors_92.xml -> build\lib\gym\envs\robotics\assets\hand
+      copying gym\envs\robotics\assets\hand\shared.xml -> build\lib\gym\envs\robotics\assets\hand
+      copying gym\envs\robotics\assets\hand\shared_asset.xml -> build\lib\gym\envs\robotics\assets\hand
+      copying gym\envs\robotics\assets\hand\shared_touch_sensors_92.xml -> build\lib\gym\envs\robotics\assets\hand
+      creating build\lib\gym\envs\robotics\assets\stls
+      creating build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\base_link_collision.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\bellows_link_collision.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\elbow_flex_link_collision.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\estop_link.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\forearm_roll_link_collision.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\gripper_link.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\head_pan_link_collision.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\head_tilt_link_collision.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\laser_link.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\l_wheel_link_collision.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\r_wheel_link_collision.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\shoulder_lift_link_collision.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\shoulder_pan_link_collision.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\torso_fixed_link.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\torso_lift_link_collision.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\upperarm_roll_link_collision.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\wrist_flex_link_collision.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      copying gym\envs\robotics\assets\stls\fetch\wrist_roll_link_collision.stl -> build\lib\gym\envs\robotics\assets\stls\fetch
+      creating build\lib\gym\envs\robotics\assets\stls\hand
+      copying gym\envs\robotics\assets\stls\hand\F1.stl -> build\lib\gym\envs\robotics\assets\stls\hand
+      copying gym\envs\robotics\assets\stls\hand\F2.stl -> build\lib\gym\envs\robotics\assets\stls\hand
+      copying gym\envs\robotics\assets\stls\hand\F3.stl -> build\lib\gym\envs\robotics\assets\stls\hand
+      copying gym\envs\robotics\assets\stls\hand\forearm_electric.stl -> build\lib\gym\envs\robotics\assets\stls\hand
+      copying gym\envs\robotics\assets\stls\hand\forearm_electric_cvx.stl -> build\lib\gym\envs\robotics\assets\stls\hand
+      copying gym\envs\robotics\assets\stls\hand\knuckle.stl -> build\lib\gym\envs\robotics\assets\stls\hand
+      copying gym\envs\robotics\assets\stls\hand\lfmetacarpal.stl -> build\lib\gym\envs\robotics\assets\stls\hand
+      copying gym\envs\robotics\assets\stls\hand\palm.stl -> build\lib\gym\envs\robotics\assets\stls\hand
+      copying gym\envs\robotics\assets\stls\hand\TH1_z.stl -> build\lib\gym\envs\robotics\assets\stls\hand
+      copying gym\envs\robotics\assets\stls\hand\TH2_z.stl -> build\lib\gym\envs\robotics\assets\stls\hand
+      copying gym\envs\robotics\assets\stls\hand\TH3_z.stl -> build\lib\gym\envs\robotics\assets\stls\hand
+      copying gym\envs\robotics\assets\stls\hand\wrist.stl -> build\lib\gym\envs\robotics\assets\stls\hand
+      creating build\lib\gym\envs\robotics\assets\textures
+      copying gym\envs\robotics\assets\textures\block.png -> build\lib\gym\envs\robotics\assets\textures
+      copying gym\envs\robotics\assets\textures\block_hidden.png -> build\lib\gym\envs\robotics\assets\textures
+      installing to build\bdist.win-amd64\wheel
+      running install
+      running install_lib
+      creating build\bdist.win-amd64
+      creating build\bdist.win-amd64\wheel
+      creating build\bdist.win-amd64\wheel\gym
+      copying build\lib\gym\core.py -> build\bdist.win-amd64\wheel\.\gym
+      creating build\bdist.win-amd64\wheel\gym\envs
+      creating build\bdist.win-amd64\wheel\gym\envs\box2d
+      copying build\lib\gym\envs\box2d\bipedal_walker.py -> build\bdist.win-amd64\wheel\.\gym\envs\box2d
+      copying build\lib\gym\envs\box2d\car_dynamics.py -> build\bdist.win-amd64\wheel\.\gym\envs\box2d
+      copying build\lib\gym\envs\box2d\car_racing.py -> build\bdist.win-amd64\wheel\.\gym\envs\box2d
+      copying build\lib\gym\envs\box2d\lunar_lander.py -> build\bdist.win-amd64\wheel\.\gym\envs\box2d
+      copying build\lib\gym\envs\box2d\__init__.py -> build\bdist.win-amd64\wheel\.\gym\envs\box2d
+      creating build\bdist.win-amd64\wheel\gym\envs\classic_control
+      copying build\lib\gym\envs\classic_control\acrobot.py -> build\bdist.win-amd64\wheel\.\gym\envs\classic_control
+      creating build\bdist.win-amd64\wheel\gym\envs\classic_control\assets
+      copying build\lib\gym\envs\classic_control\assets\clockwise.png -> build\bdist.win-amd64\wheel\.\gym\envs\classic_control\assets
+      copying build\lib\gym\envs\classic_control\cartpole.py -> build\bdist.win-amd64\wheel\.\gym\envs\classic_control
+      copying build\lib\gym\envs\classic_control\continuous_mountain_car.py -> build\bdist.win-amd64\wheel\.\gym\envs\classic_control
+      copying build\lib\gym\envs\classic_control\mountain_car.py -> build\bdist.win-amd64\wheel\.\gym\envs\classic_control
+      copying build\lib\gym\envs\classic_control\pendulum.py -> build\bdist.win-amd64\wheel\.\gym\envs\classic_control
+      copying build\lib\gym\envs\classic_control\rendering.py -> build\bdist.win-amd64\wheel\.\gym\envs\classic_control
+      copying build\lib\gym\envs\classic_control\__init__.py -> build\bdist.win-amd64\wheel\.\gym\envs\classic_control
+      creating build\bdist.win-amd64\wheel\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\ant.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\ant_v3.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      creating build\bdist.win-amd64\wheel\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\assets\ant.xml -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\assets\half_cheetah.xml -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\assets\hopper.xml -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\assets\humanoid.xml -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\assets\humanoidstandup.xml -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\assets\inverted_double_pendulum.xml -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\assets\inverted_pendulum.xml -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\assets\point.xml -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\assets\pusher.xml -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\assets\reacher.xml -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\assets\striker.xml -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\assets\swimmer.xml -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\assets\thrower.xml -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\assets\walker2d.xml -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco\assets
+      copying build\lib\gym\envs\mujoco\half_cheetah.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\half_cheetah_v3.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\hopper.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\hopper_v3.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\humanoid.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\humanoidstandup.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\humanoid_v3.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\inverted_double_pendulum.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\inverted_pendulum.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\mujoco_env.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\pusher.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\reacher.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\striker.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\swimmer.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\swimmer_v3.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\thrower.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\walker2d.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\walker2d_v3.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\mujoco\__init__.py -> build\bdist.win-amd64\wheel\.\gym\envs\mujoco
+      copying build\lib\gym\envs\registration.py -> build\bdist.win-amd64\wheel\.\gym\envs
+      creating build\bdist.win-amd64\wheel\gym\envs\robotics
+      creating build\bdist.win-amd64\wheel\gym\envs\robotics\assets
+      creating build\bdist.win-amd64\wheel\gym\envs\robotics\assets\fetch
+      copying build\lib\gym\envs\robotics\assets\fetch\pick_and_place.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\fetch
+      copying build\lib\gym\envs\robotics\assets\fetch\push.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\fetch
+      copying build\lib\gym\envs\robotics\assets\fetch\reach.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\fetch
+      copying build\lib\gym\envs\robotics\assets\fetch\robot.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\fetch
+      copying build\lib\gym\envs\robotics\assets\fetch\shared.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\fetch
+      copying build\lib\gym\envs\robotics\assets\fetch\slide.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\fetch
+      creating build\bdist.win-amd64\wheel\gym\envs\robotics\assets\hand
+      copying build\lib\gym\envs\robotics\assets\hand\manipulate_block.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\hand
+      copying build\lib\gym\envs\robotics\assets\hand\manipulate_block_touch_sensors.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\hand
+      copying build\lib\gym\envs\robotics\assets\hand\manipulate_egg.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\hand
+      copying build\lib\gym\envs\robotics\assets\hand\manipulate_egg_touch_sensors.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\hand
+      copying build\lib\gym\envs\robotics\assets\hand\manipulate_pen.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\hand
+      copying build\lib\gym\envs\robotics\assets\hand\manipulate_pen_touch_sensors.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\hand
+      copying build\lib\gym\envs\robotics\assets\hand\reach.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\hand
+      copying build\lib\gym\envs\robotics\assets\hand\robot.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\hand
+      copying build\lib\gym\envs\robotics\assets\hand\robot_touch_sensors_92.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\hand
+      copying build\lib\gym\envs\robotics\assets\hand\shared.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\hand
+      copying build\lib\gym\envs\robotics\assets\hand\shared_asset.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\hand
+      copying build\lib\gym\envs\robotics\assets\hand\shared_touch_sensors_92.xml -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\hand
+      copying build\lib\gym\envs\robotics\assets\LICENSE.md -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets
+      creating build\bdist.win-amd64\wheel\gym\envs\robotics\assets\stls
+      creating build\bdist.win-amd64\wheel\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\base_link_collision.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\bellows_link_collision.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\elbow_flex_link_collision.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\estop_link.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\forearm_roll_link_collision.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\gripper_link.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\head_pan_link_collision.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\head_tilt_link_collision.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\laser_link.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\l_wheel_link_collision.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\r_wheel_link_collision.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\shoulder_lift_link_collision.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\shoulder_pan_link_collision.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\torso_fixed_link.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\torso_lift_link_collision.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\upperarm_roll_link_collision.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\wrist_flex_link_collision.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      copying build\lib\gym\envs\robotics\assets\stls\fetch\wrist_roll_link_collision.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\fetch
+      creating build\bdist.win-amd64\wheel\gym\envs\robotics\assets\stls\hand
+      copying build\lib\gym\envs\robotics\assets\stls\hand\F1.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\hand
+      copying build\lib\gym\envs\robotics\assets\stls\hand\F2.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\hand
+      copying build\lib\gym\envs\robotics\assets\stls\hand\F3.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\hand
+      copying build\lib\gym\envs\robotics\assets\stls\hand\forearm_electric.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\hand
+      copying build\lib\gym\envs\robotics\assets\stls\hand\forearm_electric_cvx.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\hand
+      copying build\lib\gym\envs\robotics\assets\stls\hand\knuckle.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\hand
+      copying build\lib\gym\envs\robotics\assets\stls\hand\lfmetacarpal.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\hand
+      copying build\lib\gym\envs\robotics\assets\stls\hand\palm.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\hand
+      copying build\lib\gym\envs\robotics\assets\stls\hand\TH1_z.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\hand
+      copying build\lib\gym\envs\robotics\assets\stls\hand\TH2_z.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\hand
+      copying build\lib\gym\envs\robotics\assets\stls\hand\TH3_z.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\hand
+      copying build\lib\gym\envs\robotics\assets\stls\hand\wrist.stl -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\stls\hand
+      creating build\bdist.win-amd64\wheel\gym\envs\robotics\assets\textures
+      copying build\lib\gym\envs\robotics\assets\textures\block.png -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\textures
+      copying build\lib\gym\envs\robotics\assets\textures\block_hidden.png -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\assets\textures
+      creating build\bdist.win-amd64\wheel\gym\envs\robotics\fetch
+      copying build\lib\gym\envs\robotics\fetch\pick_and_place.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\fetch
+      copying build\lib\gym\envs\robotics\fetch\push.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\fetch
+      copying build\lib\gym\envs\robotics\fetch\reach.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\fetch
+      copying build\lib\gym\envs\robotics\fetch\slide.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\fetch
+      copying build\lib\gym\envs\robotics\fetch\__init__.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\fetch
+      copying build\lib\gym\envs\robotics\fetch_env.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics
+      creating build\bdist.win-amd64\wheel\gym\envs\robotics\hand
+      copying build\lib\gym\envs\robotics\hand\manipulate.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\hand
+      copying build\lib\gym\envs\robotics\hand\manipulate_touch_sensors.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\hand
+      copying build\lib\gym\envs\robotics\hand\reach.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\hand
+      copying build\lib\gym\envs\robotics\hand\__init__.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics\hand
+      copying build\lib\gym\envs\robotics\hand_env.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics
+      copying build\lib\gym\envs\robotics\robot_env.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics
+      copying build\lib\gym\envs\robotics\rotations.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics
+      copying build\lib\gym\envs\robotics\utils.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics
+      copying build\lib\gym\envs\robotics\__init__.py -> build\bdist.win-amd64\wheel\.\gym\envs\robotics
+      creating build\bdist.win-amd64\wheel\gym\envs\toy_text
+      copying build\lib\gym\envs\toy_text\blackjack.py -> build\bdist.win-amd64\wheel\.\gym\envs\toy_text
+      copying build\lib\gym\envs\toy_text\cliffwalking.py -> build\bdist.win-amd64\wheel\.\gym\envs\toy_text
+      copying build\lib\gym\envs\toy_text\discrete.py -> build\bdist.win-amd64\wheel\.\gym\envs\toy_text
+      copying build\lib\gym\envs\toy_text\frozen_lake.py -> build\bdist.win-amd64\wheel\.\gym\envs\toy_text
+      copying build\lib\gym\envs\toy_text\taxi.py -> build\bdist.win-amd64\wheel\.\gym\envs\toy_text
+      copying build\lib\gym\envs\toy_text\__init__.py -> build\bdist.win-amd64\wheel\.\gym\envs\toy_text
+      creating build\bdist.win-amd64\wheel\gym\envs\unittest
+      copying build\lib\gym\envs\unittest\cube_crash.py -> build\bdist.win-amd64\wheel\.\gym\envs\unittest
+      copying build\lib\gym\envs\unittest\memorize_digits.py -> build\bdist.win-amd64\wheel\.\gym\envs\unittest
+      copying build\lib\gym\envs\unittest\__init__.py -> build\bdist.win-amd64\wheel\.\gym\envs\unittest
+      copying build\lib\gym\envs\__init__.py -> build\bdist.win-amd64\wheel\.\gym\envs
+      copying build\lib\gym\error.py -> build\bdist.win-amd64\wheel\.\gym
+      copying build\lib\gym\logger.py -> build\bdist.win-amd64\wheel\.\gym
+      creating build\bdist.win-amd64\wheel\gym\spaces
+      copying build\lib\gym\spaces\box.py -> build\bdist.win-amd64\wheel\.\gym\spaces
+      copying build\lib\gym\spaces\dict.py -> build\bdist.win-amd64\wheel\.\gym\spaces
+      copying build\lib\gym\spaces\discrete.py -> build\bdist.win-amd64\wheel\.\gym\spaces
+      copying build\lib\gym\spaces\multi_binary.py -> build\bdist.win-amd64\wheel\.\gym\spaces
+      copying build\lib\gym\spaces\multi_discrete.py -> build\bdist.win-amd64\wheel\.\gym\spaces
+      copying build\lib\gym\spaces\space.py -> build\bdist.win-amd64\wheel\.\gym\spaces
+      copying build\lib\gym\spaces\tuple.py -> build\bdist.win-amd64\wheel\.\gym\spaces
+      copying build\lib\gym\spaces\utils.py -> build\bdist.win-amd64\wheel\.\gym\spaces
+      copying build\lib\gym\spaces\__init__.py -> build\bdist.win-amd64\wheel\.\gym\spaces
+      creating build\bdist.win-amd64\wheel\gym\utils
+      copying build\lib\gym\utils\atomic_write.py -> build\bdist.win-amd64\wheel\.\gym\utils
+      copying build\lib\gym\utils\closer.py -> build\bdist.win-amd64\wheel\.\gym\utils
+      copying build\lib\gym\utils\colorize.py -> build\bdist.win-amd64\wheel\.\gym\utils
+      copying build\lib\gym\utils\env_checker.py -> build\bdist.win-amd64\wheel\.\gym\utils
+      copying build\lib\gym\utils\ezpickle.py -> build\bdist.win-amd64\wheel\.\gym\utils
+      copying build\lib\gym\utils\json_utils.py -> build\bdist.win-amd64\wheel\.\gym\utils
+      copying build\lib\gym\utils\play.py -> build\bdist.win-amd64\wheel\.\gym\utils
+      copying build\lib\gym\utils\seeding.py -> build\bdist.win-amd64\wheel\.\gym\utils
+      copying build\lib\gym\utils\__init__.py -> build\bdist.win-amd64\wheel\.\gym\utils
+      creating build\bdist.win-amd64\wheel\gym\vector
+      copying build\lib\gym\vector\async_vector_env.py -> build\bdist.win-amd64\wheel\.\gym\vector
+      copying build\lib\gym\vector\sync_vector_env.py -> build\bdist.win-amd64\wheel\.\gym\vector
+      creating build\bdist.win-amd64\wheel\gym\vector\utils
+      copying build\lib\gym\vector\utils\misc.py -> build\bdist.win-amd64\wheel\.\gym\vector\utils
+      copying build\lib\gym\vector\utils\numpy_utils.py -> build\bdist.win-amd64\wheel\.\gym\vector\utils
+      copying build\lib\gym\vector\utils\shared_memory.py -> build\bdist.win-amd64\wheel\.\gym\vector\utils
+      copying build\lib\gym\vector\utils\spaces.py -> build\bdist.win-amd64\wheel\.\gym\vector\utils
+      copying build\lib\gym\vector\utils\__init__.py -> build\bdist.win-amd64\wheel\.\gym\vector\utils
+      copying build\lib\gym\vector\vector_env.py -> build\bdist.win-amd64\wheel\.\gym\vector
+      copying build\lib\gym\vector\__init__.py -> build\bdist.win-amd64\wheel\.\gym\vector
+      copying build\lib\gym\version.py -> build\bdist.win-amd64\wheel\.\gym
+      creating build\bdist.win-amd64\wheel\gym\wrappers
+      copying build\lib\gym\wrappers\atari_preprocessing.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\clip_action.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\filter_observation.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\flatten_observation.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\frame_stack.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\gray_scale_observation.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\monitor.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      creating build\bdist.win-amd64\wheel\gym\wrappers\monitoring
+      copying build\lib\gym\wrappers\monitoring\stats_recorder.py -> build\bdist.win-amd64\wheel\.\gym\wrappers\monitoring
+      copying build\lib\gym\wrappers\monitoring\video_recorder.py -> build\bdist.win-amd64\wheel\.\gym\wrappers\monitoring
+      copying build\lib\gym\wrappers\monitoring\__init__.py -> build\bdist.win-amd64\wheel\.\gym\wrappers\monitoring
+      copying build\lib\gym\wrappers\normalize.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\order_enforcing.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\pixel_observation.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\record_episode_statistics.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\record_video.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\rescale_action.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\resize_observation.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\time_aware_observation.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\time_limit.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\transform_observation.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\transform_reward.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\wrappers\__init__.py -> build\bdist.win-amd64\wheel\.\gym\wrappers
+      copying build\lib\gym\__init__.py -> build\bdist.win-amd64\wheel\.\gym
+      running install_egg_info
+      running egg_info
+      writing gym.egg-info\PKG-INFO
+      writing dependency_links to gym.egg-info\dependency_links.txt
+      writing requirements to gym.egg-info\requires.txt
+      writing top-level names to gym.egg-info\top_level.txt
+      reading manifest file 'gym.egg-info\SOURCES.txt'
+      writing manifest file 'gym.egg-info\SOURCES.txt'
+      Copying gym.egg-info to build\bdist.win-amd64\wheel\.\gym-0.21.0-py3.9.egg-info
+      running install_scripts
+      Traceback (most recent call last):
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\wheel\vendored\packaging\requirements.py", line 35, in __init__
+          parsed = _parse_requirement(requirement_string)
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\wheel\vendored\packaging\_parser.py", line 64, in parse_requirement
+          return _parse_requirement(Tokenizer(source, rules=DEFAULT_RULES))
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\wheel\vendored\packaging\_parser.py", line 82, in _parse_requirement
+          url, specifier, marker = _parse_requirement_details(tokenizer)
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\wheel\vendored\packaging\_parser.py", line 126, in _parse_requirement_details
+          marker = _parse_requirement_marker(
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\wheel\vendored\packaging\_parser.py", line 147, in _parse_requirement_marker
+          tokenizer.raise_syntax_error(
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\wheel\vendored\packaging\_tokenizer.py", line 165, in raise_syntax_error
+          raise ParserSyntaxError(
+      wheel.vendored.packaging._tokenizer.ParserSyntaxError: Expected end or semicolon (after version specifier)
+          opencv-python>=3.
+                       ~~~^
+
+      The above exception was the direct cause of the following exception:
+
+      Traceback (most recent call last):
+        File "<string>", line 2, in <module>
+        File "<pip-setuptools-caller>", line 34, in <module>
+        File "C:\Users\akira\AppData\Local\Temp\pip-install-ayt_2y2i\gym_2802b94997ea46ce9ad745dd71907e47\setup.py", line 39, in <module>
+          setup(
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\setuptools\__init__.py", line 153, in setup
+          return distutils.core.setup(**attrs)
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\distutils\core.py", line 148, in setup
+          dist.run_commands()
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\distutils\dist.py", line 966, in run_commands
+          self.run_command(cmd)
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\distutils\dist.py", line 985, in run_command
+          cmd_obj.run()
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\wheel\_bdist_wheel.py", line 439, in run
+          self.egg2dist(self.egginfo_dir, distinfo_dir)
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\wheel\_bdist_wheel.py", line 579, in egg2dist
+          pkg_info = pkginfo_to_metadata(egginfo_path, pkginfo_path)
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\wheel\metadata.py", line 164, in pkginfo_to_metadata
+          for key, value in generate_requirements({extra: reqs}):
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\wheel\metadata.py", line 141, in generate_requirements
+          for new_req in convert_requirements(depends):
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\wheel\metadata.py", line 106, in convert_requirements
+          parsed_requirement = Requirement(req)
+        File "C:\Users\akira\anaconda3\envs\webots2\lib\site-packages\wheel\vendored\packaging\requirements.py", line 37, in __init__
+          raise InvalidRequirement(str(e)) from e
+      wheel.vendored.packaging.requirements.InvalidRequirement: Expected end or semicolon (after version specifier)
+          opencv-python>=3.
+                       ~~~^
+      [end of output]
+
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for gym
+  Running setup.py clean for gym
+Failed to build gym
+Installing collected packages: gym
+  Running setup.py install for gym ... done
+  DEPRECATION: gym was installed using the legacy 'setup.py install' method, because a wheel could not be built for it. pip 23.1 will enforce this behaviour change. A possible replacement is to fix the wheel build issue reported above. Discussion can be found at https://github.com/pypa/pip/issues/8368
+Successfully installed gym-0.21.0
+WARNING: There was an error checking the latest version of pip.
