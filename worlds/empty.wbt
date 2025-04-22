@@ -1,15 +1,988 @@
-#VRML_SIM R2021b utf8
+#VRML_SIM R2022a utf8
 WorldInfo {
-  coordinateSystem "NUE"
 }
-Viewpoint {
-  orientation -0.7258880555834074 0.6646340187454254 0.17705409311181006 0.6672704892917231
-  position 2.5456018692895617 3.371054251852394 5.0933268243574155
+DEF VIEWPOINT Viewpoint {
+  orientation 0.1584785469207551 0.0007824300859006604 -0.9873621108636115 3.1318254070270775
+  position 7.020402700238265 6.302567209895638 5.067511585465112
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
 RectangleArena {
-  floorSize 5 5
+  rotation 0 1 0 0
+  floorSize 10 10
+  wallHeight 0.4
+}
+DEF TARGET Solid {
+  translation 3.02 0 0.01
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        roughness 1
+        metalness 0
+      }
+      geometry Plane {
+        size 0.3 0.3
+      }
+    }
+  ]
+}
+DEF ROBOT RobotisOp2 {
+  hidden position_0_0 -1.847053574597877e-07
+  hidden position_0_1 5.805588820047702e-07
+  hidden position_0_2 7.352904542826233e-06
+  hidden position_0_3 0.7218672312697176
+  hidden position_0_4 -0.8447386595082494
+  hidden rotation_23 0.5774169918987058 0.5773169049407678 0.5773169049458557 2.0943999159848943
+  hidden position_23_0 0.17355521805010815
+  hidden rotation_24 0.9999999999999999 0 0 0.611844781949884
+  hidden rotation_28 0.5773569781150321 0.5773468179028705 0.5773470114924889 2.0944140747066293
+  hidden position_28_0 -0.014474594655588422
+  hidden rotation_29 0 0 1 0.01447459465557748
+  hidden position_29_0 0.6312423682197117
+  hidden rotation_30 -1 0 0 0.6312423682197119
+  hidden position_30_0 -0.9292162131860052
+  hidden rotation_31 0.9999999999999999 0 0 0.9292162131860051
+  hidden position_31_0 -0.5237409286188781
+  hidden rotation_32 -1 0 0 0.523740928618878
+  hidden position_32_0 -0.01381928194070984
+  hidden rotation_33 0 0 -1 0.01381928194071498
+  hidden rotation_34 0.5773292500938285 0.577360802304992 0.5773607545961479 2.0944123296312505
+  hidden position_34_0 0.014362814230621836
+  hidden rotation_35 0 0 -0.9999999999999999 0.014362814230627423
+  hidden position_35_0 -0.6312426311990239
+  hidden rotation_36 -1 0 0 0.6312426311990236
+  hidden position_36_0 0.9292228685616352
+  hidden rotation_37 1 0 0 0.9292228685616352
+  hidden position_37_0 0.5237432473756374
+  hidden rotation_38 -1 0 0 0.5237432473756376
+  hidden position_38_0 0.013819308839593113
+  hidden rotation_39 0 0 1 0.013819308839582078
+  hidden rotation_40 0.6735483674786747 0.6735483370483486 0.3044096488717409 2.5506574801598583
+  hidden position_40_0 0.30717823109760295
+  hidden rotation_41 0 0 1 0.4782217689023922
+  hidden position_41_0 -0.5160587587838141
+  hidden rotation_42 -1 0 0 2.086858758783814
+  hidden rotation_44 0.6829090467897866 0.682909186872776 0.2593651408679064 2.6339352468160975
+  hidden position_44_0 -0.31178497128975097
+  hidden rotation_45 0 0 -1 0.4736150287102459
+  hidden position_45_0 0.5114511128225016
+  hidden rotation_46 -0.9999999999999999 0 0 2.0822511128225005
+  translation -0.6147350318439392 -0.08773464115302756 0.31658060216554057
+  rotation 0.008498511076004706 0.9970314796029995 -0.07652453194985477 0.2264811842455033
+  controller "my_controller"
+  supervisor TRUE
+  bodySlot [
+    DEF DS Group {
+      children [
+        DistanceSensor {
+          translation 0.053 -4.28515e-18 0.01
+          rotation 0 0 1 1.570796327
+          name "distance sensor(0)"
+          lookupTable [
+            0.015 0 0
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          translation 0.051 0 0.01
+          rotation 0 0 1 1.308996939
+          name "distance sensor(1)"
+          lookupTable [
+            0.013 0 0
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          translation 0.051 0 0.01
+          rotation 0 0 1 1.047197551
+          name "distance sensor(2)"
+          lookupTable [
+            0.012 0 0
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          translation 0.051 0 0.01
+          rotation 0 0 1 0.785398163
+          name "distance sensor(3)"
+          lookupTable [
+            0.008 0 0
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          translation 0.051 0 0.01
+          rotation 0 0 1 0.523598776
+          name "distance sensor(4)"
+          lookupTable [
+            0.007 0 0
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          translation 0.051 0 0.01
+          rotation 0 0 1 0.2617993877991494
+          name "distance sensor(5)"
+          lookupTable [
+            0.006 0 0
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          translation 0.051 0 0.01
+          name "distance sensor(6)"
+          lookupTable [
+            0.006 0 0
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          translation 0.051 0 0.01
+          rotation 0 0 1 -0.261799
+          name "distance sensor(7)"
+          lookupTable [
+            0.006 0 0
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 5.21288662927099e-320
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          translation 0.051 0 0.01
+          rotation 0 0 1 -0.523598776
+          name "distance sensor(8)"
+          lookupTable [
+            0.007 0 0
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 5.21288662927099e-320
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          translation 0.051 0 0.01
+          rotation 0.5774169358652314 0.577316932964905 0.5773169329649032 2.094400000032799
+          name "distance sensor(9)"
+          lookupTable [
+            0.008 0 0
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 5.18571301874972e-320
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          translation 0.051 0 0.01
+          rotation 0 0 1 -1.047197551
+          name "distance sensor(10)"
+          lookupTable [
+            0.012 0 0
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          translation 0.051 0 0.01
+          rotation 0 0 1 -1.309
+          name "distance sensor(11)"
+          lookupTable [
+            0.013 0 0
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+        DistanceSensor {
+          translation 0.053 0 0.01
+          rotation 0 0 1 -1.570796327
+          name "distance sensor(12)"
+          lookupTable [
+            0.015 0 0
+            0.25 25 0
+            0.5 50 0
+            0.75 75 0
+            1 100 0
+          ]
+          aperture 0.1
+        }
+      ]
+    }
+  ]
+  leftHandSlot [
+    TouchSensor {
+      translation 0.05 -0.17 0
+      name "touch sensor left"
+    }
+  ]
+  rightHandSlot [
+    TouchSensor {
+      translation -0.05 -0.17 0
+      name "touch sensor right"
+    }
+  ]
+}
+DEF OBSTACLES Group {
+  children [
+    DEF OBSTACLE_C1 WoodenChair {
+      translation -8.99 2.08 -0.06
+      name "wooden chair 1"
+      color 1 0.333333 0
+    }
+    DEF OBSTACLE_C2 WoodenChair {
+      translation -8.99 3.13 -0.06
+      name "wooden chair 2"
+      color 1 0.333333 0
+    }
+    DEF OBSTACLE_C3 WoodenChair {
+      translation -8.99 1.01 -0.06
+      name "wooden chair 3"
+      color 1 0.333333 0
+    }
+    DEF OBSTACLE_C4 WoodenChair {
+      translation -8.99 2.61 -0.06
+      name "wooden chair 4"
+      color 1 0.333333 0
+    }
+    DEF OBSTACLE_C5 WoodenChair {
+      translation -8.99 1.54 -0.06
+      name "wooden chair 5"
+      color 1 0.333333 0
+    }
+    DEF OBSTACLE_CBL1 Solid {
+      translation -7.79463 -2.61357 0.2
+      rotation 0 1 0 0
+      children [
+        DEF OBSTACLE_CBL_SHAPE Shape {
+          appearance PBRAppearance {
+            baseColor 0.333333 1 0.498039
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.4 1.2 0.4
+          }
+        }
+      ]
+      name "cardboard box long 1"
+      boundingObject USE OBSTACLE_CBL_SHAPE
+    }
+    DEF OBSTACLE_CBL2 Solid {
+      translation -7.79463 -1.27357 0.2
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.333333 1 0.498039
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.4 1.2 0.4
+          }
+        }
+      ]
+      name "cardboard box long 2"
+      boundingObject USE OBSTACLE_CBL_SHAPE
+    }
+    DEF OBSTACLE_CBL3 Solid {
+      translation -7.78463 0.09643 0.2
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.333333 1 0.498039
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.4 1.2 0.4
+          }
+        }
+      ]
+      name "cardboard box long 3"
+      boundingObject USE OBSTACLE_CBL_SHAPE
+    }
+    DEF OBSTACLE_CBL4 Solid {
+      translation -7.78463 1.39643 0.2
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.333333 1 0.498039
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.4 1.2 0.4
+          }
+        }
+      ]
+      name "cardboard box long 4"
+      boundingObject USE OBSTACLE_CBL_SHAPE
+    }
+    DEF OBSTACLE_CBL5 Solid {
+      translation -7.77463 2.71643 0.2
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.333333 1 0.498039
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.4 1.2 0.4
+          }
+        }
+      ]
+      name "cardboard box long 6"
+      boundingObject USE OBSTACLE_CBL_SHAPE
+    }
+    DEF OBSTACLE_CB1 Solid {
+      translation -8.42463 3.12643 0.2
+      rotation 0 1 0 0
+      children [
+        DEF OBSTACLE_CB_SHAPE Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.4 0.4 0.4
+          }
+        }
+      ]
+      name "cardboard box 1"
+      boundingObject USE OBSTACLE_CB_SHAPE
+    }
+    DEF OBSTACLE_JJ1 Solid {
+      translation -7.79463 -3.56357 0.2
+      rotation 0 1 0 0
+      children [
+        DEF OBSTACLE_CB_SHAPE Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.4
+            radius 0.2
+          }
+        }
+      ]
+      name "jam jar 1"
+      boundingObject USE OBSTACLE_CB_SHAPE
+    }
+    DEF OBSTACLE_JJ2 Solid {
+      translation -7.79463 -5.65357 0.2
+      rotation 0 1 0 0
+      children [
+        DEF OBSTACLE_CB_SHAPE Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.4
+            radius 0.2
+          }
+        }
+      ]
+      name "jam jar 2"
+      boundingObject USE OBSTACLE_CB_SHAPE
+    }
+    DEF OBSTACLE_JJ3 Solid {
+      translation -7.79463 -5.14357 0.2
+      rotation 0 1 0 0
+      children [
+        DEF OBSTACLE_CB_SHAPE Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.4
+            radius 0.2
+          }
+        }
+      ]
+      name "jam jar 3"
+      boundingObject USE OBSTACLE_CB_SHAPE
+    }
+    DEF OBSTACLE_JJ4 Solid {
+      translation -7.79463 -4.62357 0.2
+      rotation 0 1 0 0
+      children [
+        DEF OBSTACLE_CB_SHAPE Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.4
+            radius 0.2
+          }
+        }
+      ]
+      name "jam jar 4"
+      boundingObject USE OBSTACLE_CB_SHAPE
+    }
+    DEF OBSTACLE_JJ5 Solid {
+      translation -7.79463 -4.07357 0.2
+      rotation 0 1 0 0
+      children [
+        DEF OBSTACLE_CB_SHAPE Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.4
+            radius 0.2
+          }
+        }
+      ]
+      name "jam jar 5"
+      boundingObject USE OBSTACLE_CB_SHAPE
+    }
+    DEF OBSTACLE_CB2 Solid {
+      translation -8.42463 2.59643 0.2
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.4 0.4 0.4
+          }
+        }
+      ]
+      name "cardboard box 2"
+      boundingObject USE OBSTACLE_CB_SHAPE
+    }
+    DEF OBSTACLE_CB3 Solid {
+      translation -8.42463 2.06643 0.2
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.4 0.4 0.4
+          }
+        }
+      ]
+      name "cardboard box 3"
+      boundingObject USE OBSTACLE_CB_SHAPE
+    }
+    DEF OBSTACLE_CB4 Solid {
+      translation -8.42463 1.53643 0.2
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.4 0.4 0.4
+          }
+        }
+      ]
+      name "cardboard box 4"
+      boundingObject USE OBSTACLE_CB_SHAPE
+    }
+    DEF OBSTACLE_CB5 Solid {
+      translation -8.42463 1.00643 0.2
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.4 0.4 0.4
+          }
+        }
+      ]
+      name "cardboard box 5"
+      boundingObject USE OBSTACLE_CB_SHAPE
+    }
+    DEF OBSTACLE_CBLA1 Solid {
+      translation -8.81463 0.09643 0.2
+      rotation 0 1 0 0
+      children [
+        DEF OBSTACLE_CBLA_SHAPE Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 1.2 1.2 0.4
+          }
+        }
+      ]
+      name "cardboard box large 1"
+      boundingObject USE OBSTACLE_CBLA_SHAPE
+    }
+    DEF OBSTACLE_CBLA2 Solid {
+      translation -8.81463 -1.27357 0.2
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 1.2 1.2 0.4
+          }
+        }
+      ]
+      name "cardboard box large 2"
+      boundingObject USE OBSTACLE_CBLA_SHAPE
+    }
+    DEF OBSTACLE_CBLA3 Solid {
+      translation -8.81463 -5.29357 0.2
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 1.2 1.2 0.4
+          }
+        }
+      ]
+      name "cardboard box large 3"
+      boundingObject USE OBSTACLE_CBLA_SHAPE
+    }
+    DEF OBSTACLE_CBLA4 Solid {
+      translation -8.81463 -3.94357 0.2
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 1.2 1.2 0.4
+          }
+        }
+      ]
+      name "cardboard box large 4"
+      boundingObject USE OBSTACLE_CBLA_SHAPE
+    }
+    DEF OBSTACLE_CBLA5 Solid {
+      translation -8.81463 -2.61357 0.2
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 1.2 1.2 0.4
+          }
+        }
+      ]
+      name "cardboard box large 5"
+      boundingObject USE OBSTACLE_CBLA_SHAPE
+    }
+  ]
+}
+DEF WALLS Group {
+  children [
+    DEF WALL_1 Solid {
+      translation -6.61 -2.428e-05 0.15
+      rotation 0 0 1 1.5708
+      children [
+        DEF WALL_SHAPE Shape {
+          appearance PBRAppearance {
+            baseColor 0.415686 0.415686 0.419608
+            metalness 0
+          }
+          geometry Box {
+            size 10 0.1 0.4
+          }
+        }
+      ]
+      name "wall 1"
+      boundingObject USE WALL_SHAPE
+    }
+    DEF WALL_2 Solid {
+      translation -6.95 -0.01001 0.15
+      rotation 0 0 1 -1.5707953071795862
+      children [
+        DEF WALL_SHAPE Shape {
+          appearance PBRAppearance {
+            baseColor 0.415686 0.415686 0.419608
+            metalness 0
+          }
+          geometry Box {
+            size 10 0.1 0.4
+          }
+        }
+      ]
+      name "wall 2"
+      boundingObject USE WALL_SHAPE
+    }
+  ]
+}
+DEF PATH Group {
+  children [
+    DEF P0 Solid {
+      translation -7.94 9.77 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p"
+    }
+    DEF P1 Solid {
+      translation -7.94 3.68 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(1)"
+    }
+    DEF P2 Solid {
+      translation -7.94 5.22 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(2)"
+    }
+    DEF P3 Solid {
+      translation -7.94 4.84 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(3)"
+    }
+    DEF P4 Solid {
+      translation -7.94 4.45 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(4)"
+    }
+    DEF P0 Solid {
+      translation -7.94 5.62 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(5)"
+    }
+    DEF P5 Solid {
+      translation -7.94 6.38 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(6)"
+    }
+    DEF P6 Solid {
+      translation -7.94 6.77 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(7)"
+    }
+    DEF P7 Solid {
+      translation -7.94 9.06 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(8)"
+    }
+    DEF P8 Solid {
+      translation -7.94 9.42 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(9)"
+    }
+    DEF P9 Solid {
+      translation -7.94 4.06 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(10)"
+    }
+    DEF P10 Solid {
+      translation -7.94 8.7 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(11)"
+    }
+    DEF P11 Solid {
+      translation -7.94 8.31 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(12)"
+    }
+    DEF P12 Solid {
+      translation -7.94 7.93 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(13)"
+    }
+    DEF P13 Solid {
+      translation -7.94 7.54 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(14)"
+    }
+    DEF P14 Solid {
+      translation -7.94 7.15 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(15)"
+    }
+    DEF P15 Solid {
+      translation -7.94 6 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            transparency 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Plane {
+            size 0.3 0.3
+          }
+        }
+      ]
+      name "p(16)"
+    }
+  ]
 }
