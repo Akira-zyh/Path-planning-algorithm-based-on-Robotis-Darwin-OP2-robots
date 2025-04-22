@@ -16,4 +16,13 @@
     - If you don't have a NVIDIA GPU, you can install [DirectML for PyTorch](https://learn.microsoft.com/zh-cn/windows/ai/directml/pytorch-windows) with `Python 3.10` and `torch 2.4` (Really great for Windows 11 and WSL).
 
 ---
-#TODO
+
+Requirements
+
+- python==3.9
+- Deepbots>=0.14.dev
+- gym==0.21.0
+- stable-baselines==1.8.0
+- tensorboard
+- numpy
+- torch
