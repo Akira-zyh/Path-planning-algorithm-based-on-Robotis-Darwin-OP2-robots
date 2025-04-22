@@ -7,6 +7,10 @@
 
 ---
 
+## Map
+
+![map initialized](https://github.com/Akira-zyh/Path-planning-algorithm-based-on-Robotis-Darwin-OP2-robots/blob/main/map.png)
+
 ## Environment setup
 1. Install Python 3.10.x (recommend to install Python 3.10.x in [Miniconda](https://www.anaconda.com/docs/getting-started/miniconda/main))
 2. Install [Webot 2022b](https://github.com/cyberbotics/webots/releases/tag/R2022b) or older
