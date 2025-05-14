@@ -4,7 +4,7 @@ from stable_baselines3.common.callbacks import CheckpointCallback
 from controller import Supervisor
 import os
 
-env = NavigationRobotSupervisor(description="", seed=2)
+env = NavigationRobotSupervisor(description="", seed=53)
 
 controller_dir = os.path.dirname(os.path.abspath(__file__))
 LOG_DIR = os.path.join(controller_dir, "training_logs_deepbots_darwin/")
@@ -14,10 +14,10 @@ if os.path.exists(model_path):
     model = PPO.load(model_path, env=env, verbose=1, tensorboard_log=LOG_DIR)
 else:
     print("Creating new model")
-    model = PPO("MlpPolicy", env, verbose=1, tensorboard_log=LOG_DIR)
+    model = PPO("MlpPolicy", env, verbose=1, tensorboard_log=LOG_DIR, ent_coef=0.01, gamma=0.995, learning_rate=3e-4)
 
 checkpoint_callback = CheckpointCallback(
-    save_freq=50000,
+    save_freq=5000,
     save_path=LOG_DIR,
     name_prefix='model',
 )
@@ -25,7 +25,7 @@ checkpoint_callback = CheckpointCallback(
 print("Starting training")
 
 try:
-    model.learn(total_timesteps=5000000, callback=[checkpoint_callback])
+    model.learn(total_timesteps=500000, callback=[checkpoint_callback])
 except Exception as e:
     print("Error occured")
     env.close()
